@@ -1,0 +1,177 @@
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 48px 64px;
+  display: flex;
+  gap: 64px;
+}
+
+.sidebar {
+  width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filterLabel {
+  color: var(--color-text);
+  font-size: var(--fs-body);
+  opacity: 0.6;
+}
+
+.filtersSection {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.filterTitle {
+  color: var(--color-text);
+  font-weight: var(--font-medium);
+}
+
+.sectionSubtitle {
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--color-gray-light);
+  padding-bottom: 24px;
+  font-size: var(--fs-h3);
+}
+
+.filterGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.filterItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 96px;
+  border: 1px solid var(--color-gray-light);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  background: none;
+  cursor: pointer;
+}
+
+.filterItemActive {
+  border-color: var(--color-button) !important;
+}
+
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.card {
+  width: 100%;
+  border: 1px solid var(--color-gray-light);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  gap: 24px;
+  background-color: var(--color-white);
+}
+
+.imageWrapper {
+  width: 290px;
+  height: 310px;
+  flex-shrink: 0;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.camperName {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-h2);
+  color: var(--color-main);
+  margin: 0;
+}
+
+.priceWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.price {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-h2);
+  margin: 0;
+}
+
+.infoRow {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--fs-body);
+}
+
+.description {
+  color: var(--color-text);
+  line-height: 24px;
+  margin-bottom: 24px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-clamp: 1;
+}
+
+.badgeList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.loadMoreWrapper {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.heartIcon {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.heartIcon:hover {
+  color: var(--color-button);
+}

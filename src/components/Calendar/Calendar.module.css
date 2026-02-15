@@ -1,0 +1,74 @@
+/* src/components/Calendar/Calendar.module.css */
+
+.wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.iconWrapper {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--color-main);
+}
+
+/* --- React Datepicker Overrides --- */
+
+/* Takvim Ana Konteynırı */
+:global(.react-datepicker) {
+  border: 1px solid var(--color-gray-light) !important;
+  border-radius: 12px !important;
+  font-family: var(--font-inter) !important;
+  overflow: hidden !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Üst Başlık Alanı */
+:global(.react-datepicker__header) {
+  background-color: var(--color-white) !important;
+  border-bottom: 1px solid var(--color-gray-light) !important;
+  padding-top: 16px !important;
+}
+
+/* Ay ve Yıl Bilgisi */
+:global(.react-datepicker__current-month) {
+  color: var(--color-main) !important;
+  font-size: var(--fs-body2) !important;
+  font-weight: var(--fw-body2) !important;
+  padding-bottom: 8px !important;
+}
+
+/* Seçili Gün (Koyu gri/Lacivert tasarımınızdaki #475467) */
+:global(.react-datepicker__day--selected) {
+  background-color: #475467 !important;
+  color: var(--color-white) !important;
+  border-radius: 50% !important;
+  font-weight: var(--font-medium) !important;
+}
+
+/* Gün İsimleri (Pzt, Sal vb.) */
+:global(.react-datepicker__day-name) {
+  color: var(--color-main) !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  text-transform: uppercase !important;
+}
+
+/* Genel Gün Hücresi */
+:global(.react-datepicker__day) {
+  color: var(--color-text) !important;
+  font-size: var(--fs-body) !important;
+  border-radius: 50% !important;
+  transition: all 0.3s ease !important;
+}
+
+:global(.react-datepicker__day:hover) {
+  background-color: var(--color-badges) !important;
+}
+
+/* Ay Dışındaki Günler (Pasif görünüm) */
+:global(.react-datepicker__day--outside-month) {
+  color: var(--color-gray-light) !important;
+}

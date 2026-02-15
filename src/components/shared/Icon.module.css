@@ -1,0 +1,16 @@
+/* src/components/shared/Icon.module.css */
+
+.icon {
+  display: inline-block;
+  /* stroke ve fill değerlerini CSS üzerinden yönetebilmek için */
+  fill: currentColor;
+  stroke: currentColor;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+/* Varsayılan boyut (Tailwind w-5 h-5 karşılığı) */
+.defaultSize {
+  width: 20px;
+  height: 20px;
+}

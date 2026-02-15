@@ -1,0 +1,14 @@
+/* src/App.module.css */
+
+.appWrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainContent {
+  flex: 1; /* Header'dan kalan tüm alanı doldurur */
+  display: flex;
+  flex-direction: column;
+}

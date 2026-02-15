@@ -1,16 +1,23 @@
-# React + Vite
+# TravelTrucks - Karavan Kiralama Platformu
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+TravelTrucks, kullanıcıların hayallerindeki karavanı bulmalarını, detaylı özelliklerini incelemelerini ve kolayca rezervasyon yapmalarını sağlayan modern bir web uygulamasıdır. Figma tasarımına sadık kalınarak, kullanıcı dostu bir arayüz ve güçlü filtreleme özellikleriyle geliştirilmiştir.
 
-Currently, two official plugins are available:
+## 📝 Kısa Açıklama
+Bu proje, kapsamlı bir karavan kataloğu sunar. Kullanıcılar araçları ekipmanlarına ve tiplerine göre filtreleyebilir, detay sayfalarında diğer kullanıcıların yorumlarını okuyabilir ve gitmek istedikleri tarihler için rezervasyon formu doldurabilirler.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Temel Özellikler
+- **Gelişmiş Filtreleme:** Konum, araç tipi (Van, Entegre, Alcove) ve araç donanımlarına (Klima, Mutfak, TV, vb.) göre arama yapabilme.
+- **Dinamik Katalog:** "Load More" (Daha Fazla Yükle) özelliği ile performanslı veri listeleme.
+- **Detaylı Araç Görünümü:** Araç galerisi, teknik özellikler tablosu ve kullanıcı yorumları (Reviews) sistemi.
+- **Rezervasyon Sistemi:** Takvim entegrasyonu ve form doğrulama içeren kullanıcı dostu rezervasyon paneli.
+- **Asenkron Veri Yönetimi:** API istekleri sırasında kullanıcı deneyimini artıran yüklenme göstergeleri (Loading indicators).
+- **Responsive Tasarım:** Farklı ekran boyutlarında kusursuz görünen esnek arayüz.
 
-## React Compiler
+## 🛠️ Kurulum ve Kullanım Talimatları
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Projeyi yerel bilgisayarınızda çalıştırmak için aşağıdaki adımları takip edin:
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. **Projeyi Klonlayın:**
+   ```bash
+   git clone [https://github.com/saimdurmusoglu/TravelTrucks.git](https://github.com/saimdurmusoglu/TravelTrucks.git)
+   cd traveltrucks

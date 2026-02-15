@@ -1,0 +1,208 @@
+/* src/styles/global.css */
+
+/* 1. CSS Değişkenleri (Variables) */
+:root {
+  /* Colors */
+  --color-main: #101828;
+  --color-text: #475467;
+  --color-gray: #6C717B;
+  --color-button: #E44848;
+  --color-button-hover: #D84343;
+  --color-rating: #FFC531;
+  --color-gray-light: #DADDE1;
+  --color-badges: #F2F4F7;
+  --color-inputs: #F7F7F7;
+  --color-white: #FFFFFF;
+
+  /* Typography values */
+  --font-inter: "Inter", sans-serif;
+
+  /* Font Sizes & Line Heights */
+  --fs-h1: 48px;
+  --lh-h1: 32px;
+  --fw-h1: 600;
+
+  --fs-h2: 24px;
+  --lh-h2: 32px;
+  --fw-h2: 600;
+
+  --fs-h3: 20px;
+  --lh-h3: 24px;
+  --fw-h3: 600;
+
+  --fs-body: 16px;
+  --lh-body: 24px;
+  --fw-body: 400;
+
+  --fs-body2: 16px;
+  --lh-body2: 24px;
+  --fw-body2: 500;
+
+  --fs-button: 16px;
+  --lh-button: 24px;
+  --fw-button: 500;
+
+  /* Container */
+  --container-max-width: 1440px;
+}
+
+/* 2. Base Styles (Temel Sıfırlama) */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-inter);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: var(--fw-body);
+  color: var(--color-text);
+  background-color: var(--color-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  font-size: var(--fs-h1);
+  line-height: var(--lh-h1);
+  font-weight: var(--fw-h1);
+  color: var(--color-main);
+}
+
+h2 {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  font-weight: var(--fw-h2);
+  color: var(--color-main);
+}
+
+h3 {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  font-weight: var(--fw-h3);
+  color: var(--color-main);
+}
+
+input, textarea, button {
+  font-family: var(--font-inter);
+  outline: none;
+}
+
+/* 3. Global Component Classes (Re-usable) */
+
+/* Typography Utilities */
+.H1 { font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: var(--fw-h1); color: var(--color-main); }
+.H2 { font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: var(--fw-h2); color: var(--color-main); }
+.H3 { font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: var(--fw-h3); color: var(--color-main); }
+.Body2 { font-size: var(--fs-body2); line-height: var(--lh-body2); font-weight: var(--fw-body2); }
+
+.Body-underline {
+  font-size: var(--fs-body);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: var(--color-button);
+  color: var(--color-white);
+  font-size: var(--fs-button);
+  font-weight: var(--fw-button);
+  padding: 16px 60px; /* px-15 (15*4=60px) */
+  border-radius: 200px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  text-align: center;
+  /* width: fit-content; */
+}
+
+.btn-primary:hover {
+  background-color: var(--color-button-hover);
+}
+
+.btn-primary:disabled {
+  background-color: var(--color-gray-light);
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 1px solid var(--color-gray-light);
+  color: var(--color-main);
+  font-size: var(--fs-button);
+  font-weight: var(--fw-button);
+  padding: 16px 32px; /* px-8 */
+  border-radius: 200px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-button);
+}
+
+/* Forms */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input-main {
+  width: 100%;
+  background-color: var(--color-inputs);
+  border: none;
+  border-radius: 12px;
+  padding: 18px; /* p-4.5 */
+  font-size: var(--fs-body);
+  color: var(--color-main);
+  transition: all 0.3s ease;
+}
+
+.input-main::placeholder {
+  color: var(--color-text);
+  opacity: 0.6;
+}
+
+.input-main:focus {
+  box-shadow: 0 0 0 1px var(--color-gray-light);
+}
+
+.input-icon-left {
+  position: absolute;
+  left: 18px;
+  width: 20px;
+  height: 20px;
+  color: var(--color-main);
+  pointer-events: none;
+}
+
+.input-with-icon {
+  padding-left: 48px !important; /* pl-12 */
+}
+
+/* Badges */
+.category-badge {
+  background-color: var(--color-badges);
+  color: var(--color-main);
+  font-size: var(--fs-body2);
+  font-weight: var(--fw-body2);
+  padding: 12px 18px; /* py-3 px-4.5 */
+  border-radius: 200px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.category-badge:hover {
+  border-color: var(--color-button);
+}
