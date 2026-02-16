@@ -10,65 +10,71 @@
   right: 18px;
   top: 50%;
   transform: translateY(-50%);
-  pointer-events: none;
+  pointer-events: none; /* İkonun tıklamayı engellememesi için */
   color: var(--color-main);
 }
 
-/* --- React Datepicker Overrides --- */
+/* --- React Datepicker Overrides (Design System Integration) --- */
 
-/* Takvim Ana Konteynırı */
+/* Takvim Paneli */
 :global(.react-datepicker) {
   border: 1px solid var(--color-gray-light) !important;
   border-radius: 12px !important;
   font-family: var(--font-inter) !important;
   overflow: hidden !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 4px 36px rgba(0, 0, 0, 0.08) !important; /* Daha yumuşak gölge */
 }
 
-/* Üst Başlık Alanı */
+/* Takvim Başlığı */
 :global(.react-datepicker__header) {
   background-color: var(--color-white) !important;
   border-bottom: 1px solid var(--color-gray-light) !important;
   padding-top: 16px !important;
 }
 
-/* Ay ve Yıl Bilgisi */
+/* Mevcut Ay/Yıl Başlığı */
 :global(.react-datepicker__current-month) {
   color: var(--color-main) !important;
+  /* Global Body2 özelliklerini kullanır */
   font-size: var(--fs-body2) !important;
   font-weight: var(--fw-body2) !important;
   padding-bottom: 8px !important;
 }
 
-/* Seçili Gün (Koyu gri/Lacivert tasarımınızdaki #475467) */
+/* SEÇİLİ GÜN: Kendi rengini global değişkenden alır */
 :global(.react-datepicker__day--selected) {
-  background-color: #475467 !important;
+  background-color: var(--color-main) !important; /* #101828 */
   color: var(--color-white) !important;
   border-radius: 50% !important;
-  font-weight: var(--font-medium) !important;
 }
 
-/* Gün İsimleri (Pzt, Sal vb.) */
+/* Gün İsimleri (Pzt, Sal...) */
 :global(.react-datepicker__day-name) {
-  color: var(--color-main) !important;
-  font-weight: 600 !important;
+  color: var(--color-text) !important;
+  font-weight: 500 !important;
   font-size: 12px !important;
-  text-transform: uppercase !important;
 }
 
-/* Genel Gün Hücresi */
+/* Gün Hücreleri */
 :global(.react-datepicker__day) {
-  color: var(--color-text) !important;
+  color: var(--color-main) !important;
   font-size: var(--fs-body) !important;
   border-radius: 50% !important;
-  transition: all 0.3s ease !important;
+  transition: all 0.2s ease !important;
 }
 
+/* Hover Durumu */
 :global(.react-datepicker__day:hover) {
   background-color: var(--color-badges) !important;
+  color: var(--color-main) !important;
 }
 
-/* Ay Dışındaki Günler (Pasif görünüm) */
+/* Ayın Dışındaki Pasif Günler */
 :global(.react-datepicker__day--outside-month) {
   color: var(--color-gray-light) !important;
+}
+
+/* Ok Butonları (Navigasyon) */
+:global(.react-datepicker__navigation) {
+  top: 15px !important;
 }

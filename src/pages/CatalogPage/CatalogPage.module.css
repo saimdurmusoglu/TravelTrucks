@@ -1,3 +1,6 @@
+/* CatalogPage.module.css */
+
+/* --- LAYOUT --- */
 .container {
   width: 100%;
   max-width: var(--container-max-width);
@@ -8,12 +11,20 @@
 }
 
 .sidebar {
-  width: 360px;
+  min-width: 360px;
   display: flex;
   flex-direction: column;
   gap: 32px;
 }
 
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* --- SIDEBAR --- */
 .filterGroup {
   display: flex;
   flex-direction: column;
@@ -21,9 +32,8 @@
 }
 
 .filterLabel {
-  color: var(--color-text);
-  font-size: var(--fs-body);
-  opacity: 0.6;
+  color: var(--color-gray);
+  font-weight: 500;
 }
 
 .filtersSection {
@@ -33,15 +43,18 @@
 }
 
 .filterTitle {
-  color: var(--color-text);
-  font-weight: var(--font-medium);
+  color: var(--color-gray);
+  font-weight: 500;
+  margin-bottom: 14px;
 }
 
 .sectionSubtitle {
   margin-bottom: 24px;
   border-bottom: 1px solid var(--color-gray-light);
   padding-bottom: 24px;
-  font-size: var(--fs-h3);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-main);
 }
 
 .filterGrid {
@@ -56,27 +69,24 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
+  width: 112px;
   height: 96px;
+  padding: 16px;
   border: 1px solid var(--color-gray-light);
   border-radius: 12px;
-  transition: all 0.3s ease;
   background: none;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .filterItemActive {
-  border-color: var(--color-button) !important;
+  border-color: var(--color-button);
 }
 
-.mainContent {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
+/* --- CARD --- */
 .card {
-  width: 100%;
+  width: 888px;
+  min-height: 368px;
   border: 1px solid var(--color-gray-light);
   border-radius: 20px;
   padding: 24px;
@@ -86,8 +96,8 @@
 }
 
 .imageWrapper {
-  width: 290px;
-  height: 310px;
+  width: 292px;
+  height: 320px;
   flex-shrink: 0;
 }
 
@@ -99,79 +109,98 @@
 }
 
 .details {
-  flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 24px;
+  flex: 1;
 }
 
-.headerRow {
+.topContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.namePriceRow {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 8px;
+  align-items: center;
 }
 
 .camperName {
-  font-size: var(--fs-h2);
-  font-weight: var(--fw-h2);
-  color: var(--color-main);
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 320px;
 }
 
 .priceWrapper {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
-.price {
-  font-size: var(--fs-h2);
-  font-weight: var(--fw-h2);
-  margin: 0;
+/* --- FAVORITE BUTTON --- */
+.favoriteBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer; /* Kritik Kriter: İşaretçi parmağı */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.favoriteBtn:hover {
+  transform: scale(1.1);
+}
+
+.heartIcon {
+  /* Renk müdahalesi kaldırıldı çünkü heart-pressed.svg zaten kırmızı */
+  display: block;
 }
 
 .infoRow {
   display: flex;
   gap: 16px;
-  margin-bottom: 24px;
 }
 
 .infoItem {
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: var(--fs-body);
 }
 
 .description {
-  color: var(--color-text);
-  line-height: 24px;
-  margin-bottom: 24px;
+  margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 1;
+  line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  line-clamp: 1;
+  color: var(--color-gray);
 }
 
+/* --- BADGES --- */
 .badgeList {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 24px;
+  width: 100%;
+  justify-content: flex-start;
+  padding-right: 133px;
 }
 
+/* --- LOAD MORE --- */
 .loadMoreWrapper {
   display: flex;
   justify-content: center;
   padding: 40px 0;
 }
 
-.heartIcon {
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.heartIcon:hover {
-  color: var(--color-button);
+.noResults {
+  text-align: center;
+  padding: 100px 0;
 }

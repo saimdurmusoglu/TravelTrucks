@@ -1,5 +1,6 @@
 /* src/components/BookingForm/BookingForm.module.css */
 
+/* Formun genel çerçevesi (Figma ölçülerine sadık kalındı) */
 .formCard {
   width: 448px;
   border: 1px solid var(--color-gray-light);
@@ -9,6 +10,7 @@
   flex-direction: column;
   gap: 24px;
   flex-shrink: 0;
+  background-color: var(--color-white); /* Formun zemini beyaz */
 }
 
 .titleGroup {
@@ -17,13 +19,26 @@
   gap: 8px;
 }
 
+.subtitle {
+  color: var(--color-text); /* Globalden gelen gri tonu */
+}
+
 .form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 14px; /* İnputlar arası dikey boşluk */
+}
+
+/* Textarea için özel genişlik ve yükseklik ayarı */
+.textarea {
+  /* input-main sınıfının özelliklerini ezmeden ekleme yapar */
+  composes: input-main from global;
+  resize: none; /* Kullanıcının boyutu manuel değiştirmesini engeller */
+  min-height: 114px;
 }
 
 .submitBtn {
   margin-top: 10px;
-  align-self: center;
+  align-self: center; /* Butonu form içinde yatayda ortalar */
+  padding: 16px 60px; /* Tasarımdaki geniş buton yapısı */
 }

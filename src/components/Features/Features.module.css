@@ -1,7 +1,9 @@
+/* src/components/Features/Features.module.css */
+
 .featuresWrapper {
   display: flex;
   flex-direction: column;
-  gap: 44px;
+  gap: 44px; /* Rozetler ve Tablo arasındaki geniş boşluk */
 }
 
 .badgeList {
@@ -17,33 +19,32 @@
 }
 
 .tableTitle {
-  font-size: var(--fs-h3);
-  font-weight: var(--fw-h3);
+  /* Font özellikleri global h3'ten miras alınır */
   color: var(--color-main);
   border-bottom: 1px solid var(--color-gray-light);
   padding-bottom: 24px;
+  margin-bottom: 0;
 }
 
 .detailTable {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 14px; /* Satırlar arası dikey boşluk */
 }
 
 .tableRow {
   display: flex;
   justify-content: space-between;
-  font-size: var(--fs-body2);
-  font-weight: var(--fw-body2);
+  /* Font özellikleri global Body2 sınıfından gelir */
   color: var(--color-main);
 }
 
 .tableRow span:first-child {
-  /* Sol taraf (etiketler) */
+  /* Sol sütun etiketleri */
   text-transform: capitalize;
 }
 
 .tableRow span:last-child {
-  /* Sağ taraf (değerler) */
+  /* Sağ sütun değerleri */
   text-align: right;
 }

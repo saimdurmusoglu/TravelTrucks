@@ -1,28 +1,41 @@
+/* --- LOADER YERLEŞİMİ --- */
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 300px;
+  min-height: 300px; /* Katalog sayfasında boşluk yaratmaması için ideal yükseklik */
   width: 100%;
 }
 
+/* --- SPINNER TASARIMI --- */
 .spinner {
   width: 50px;
   height: 50px;
-  border: 5px solid var(--color-badges);
-  border-top: 5px solid var(--color-button); /* Red accent color */
+  /* Arka plan halkası için tasarım sistemindeki badge rengini kullanıyoruz */
+  border: 5px solid var(--color-badges); 
+  /* Dönen kısmın rengi ana buton rengimiz (Kırmızı) */
+  border-top: 5px solid var(--color-button); 
   border-radius: 50%;
+  /* Akıcı bir dönüş için 1 saniyelik lineer animasyon */
   animation: spin 1s linear infinite;
   margin-bottom: 20px;
 }
 
+/* --- METİN STİLİ --- */
 .text {
-  font-weight: var(--fw-body2);
+  /* Renk harici özellikler global Body2'den gelir */
   color: var(--color-text);
 }
 
+/* --- DÖNÜŞ ANİMASYONU --- */
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(3600deg); } /* Hızlı ve akıcı döngü */
+  0% { 
+    transform: rotate(0deg); 
+  }
+  100% { 
+    /* 3600deg yerine 360deg daha standarttır; 
+       1s süresiyle birleşince yeterince akıcı olur */
+    transform: rotate(360deg); 
+  }
 }

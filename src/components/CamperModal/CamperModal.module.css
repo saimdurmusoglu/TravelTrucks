@@ -6,7 +6,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(17, 18, 19, 0.4); /* Tasarımdaki hafif koyu arka plan */
+  background-color: rgba(17, 18, 19, 0.4); 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,12 +17,21 @@
 .modal {
   background-color: var(--color-white);
   width: 100%;
-  max-width: 982px; /* Tasarımdaki yaklaşık genişlik */
+  max-width: 982px;
   max-height: 90vh;
   border-radius: 20px;
   padding: 40px;
   position: relative;
-  overflow-y: auto; /* İçerik taşarsa kaydırılabilir olsun */
+  overflow-y: auto; 
+}
+
+/* Scrollbar tasarımı (Chrome/Safari için) */
+.modal::-webkit-scrollbar {
+  width: 8px;
+}
+.modal::-webkit-scrollbar-thumb {
+  background: var(--color-gray-light);
+  border-radius: 10px;
 }
 
 .closeBtn {
@@ -44,10 +53,15 @@
   align-items: center;
 }
 
+.price {
+  margin: 16px 0 24px;
+  /* Font özellikleri H2'den gelir */
+}
+
 .gallery {
   display: flex;
   gap: 16px;
-  margin: 24px 0;
+  margin-bottom: 24px;
   overflow-x: auto;
 }
 
@@ -60,12 +74,11 @@
 }
 
 .description {
-  color: var(--color-text);
-  line-height: 24px;
+  /* Font özellikleri Body'den gelir */
   margin-bottom: 44px;
 }
 
-/* Tabs Menu */
+/* Sekme (Tabs) Tasarımı */
 .tabs {
   display: flex;
   gap: 40px;
@@ -75,20 +88,14 @@
 
 .tabItem {
   padding-bottom: 24px;
-  font-weight: 600;
-  font-size: 20px;
   cursor: pointer;
   background: none;
   border: none;
   position: relative;
-  color: var(--color-main);
+  /* Font özellikleri içindeki span.H3'ten gelir */
 }
 
-.tabItem.active {
-  color: var(--color-main);
-}
-
-.tabItem.active::after {
+.active::after {
   content: "";
   position: absolute;
   bottom: -1px;
@@ -106,4 +113,9 @@
 
 .tabContent {
   flex: 1;
+}
+
+.formSection {
+  width: 448px; /* Tasarımdaki form sabit genişliği */
+  flex-shrink: 0;
 }

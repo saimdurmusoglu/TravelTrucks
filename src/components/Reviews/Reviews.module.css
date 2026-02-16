@@ -1,4 +1,6 @@
 /* src/components/Reviews/Reviews.module.css */
+
+/* Yorumlar arası geniş dikey boşluk (Figma standartı) */
 .reviewsList {
   display: flex;
   flex-direction: column;
@@ -17,6 +19,7 @@
   align-items: center;
 }
 
+/* Yuvarlak profil görseli simülasyonu */
 .avatar {
   width: 60px;
   height: 60px;
@@ -26,8 +29,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
-  font-weight: 600;
+  /* Font boyutu H2 sınıfından miras alınır */
 }
 
 .nameGroup {
@@ -37,10 +39,17 @@
 }
 
 .reviewerName {
-  font-weight: 600;
+  /* Font özellikleri H3 sınıfından gelir */
+  color: var(--color-main);
+}
+
+/* Yıldızların yan yana dizildiği satır */
+.starsRow {
+  display: flex;
+  gap: 4px;
 }
 
 .comment {
+  /* Renk ve satır yüksekliği haricindeki özellikler Body sınıfından gelir */
   color: var(--color-text);
-  line-height: 24px;
 }

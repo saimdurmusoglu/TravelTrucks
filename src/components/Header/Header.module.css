@@ -2,12 +2,13 @@
 
 .header {
   width: 100%;
-  background-color: var(--color-inputs);
+  /* Tasarımdaki gri arka plan (F7F7F7) */
+  background-color: var(--color-inputs); 
   display: flex;
   justify-content: center;
-  position: sticky;
+  position: sticky; /* Sayfa kaydırıldığında yukarıda asılı kalır */
   top: 0;
-  z-index: 50;
+  z-index: 100; /* Diğer içeriklerin üstünde durması için */
   border-bottom: 1px solid var(--color-badges);
 }
 
@@ -16,7 +17,7 @@
   max-width: var(--container-max-width);
   margin: 0 auto;
   min-height: 72px;
-  padding: 24px 64px;
+  padding: 0 64px; /* Figma yan boşlukları */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -24,7 +25,7 @@
 }
 
 .logoSection {
-  flex: none;
+  flex: none; /* Logo genişliğinin daralmasını engeller */
   display: flex;
   align-items: center;
 }
@@ -32,6 +33,7 @@
 .logoSvg {
   width: 136px;
   height: 16px;
+  /* Logo rengi ana metin renginden gelir */
   fill: var(--color-main);
 }
 
@@ -39,32 +41,34 @@
   display: flex;
   align-items: center;
   gap: 32px;
+  /* Orta hizalama hilesi */
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .navLink {
-  font-weight: var(--fw-body2); /* 500 */
-  font-size: var(--fs-body2);   /* 16px */
-  line-height: var(--lh-body2); /* 24px */
+  /* Font özellikleri global Body2 sınıfından miras alınır */
   color: var(--color-main);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
+/* Aktif link ve hover durumu tasarımı */
 .active {
-  color: var(--color-button-hover);
+  color: var(--color-button); /* Kırmızı vurgu rengi */
 }
 
 .navLink:hover {
-  color: var(--color-button-hover);
+  color: var(--color-button);
 }
 
+/* Sağ boşluk: Logonun 136px genişliğini simüle eder */
 .spacer {
   width: 136px;
 }
 
+/* Mobil görünüm için dengeleyiciyi gizle */
 @media (max-width: 768px) {
   .spacer {
     display: none;

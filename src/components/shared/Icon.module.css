@@ -2,14 +2,15 @@
 
 .icon {
   display: inline-block;
-  /* stroke ve fill değerlerini CSS üzerinden yönetebilmek için */
+  /* 'currentColor' sayesinde ikon rengini dışarıdaki metin renginden (color) alır */
   fill: currentColor;
-  stroke: currentColor;
+  stroke: none; /* Sprite yapısına göre gerekirse stroke: currentColor yapılabilir */
   flex-shrink: 0;
-  transition: all 0.3s ease;
+  transition: fill 0.3s ease, stroke 0.3s ease;
+  vertical-align: middle; /* Metinle yan yana geldiğinde daha düzgün durması için */
 }
 
-/* Varsayılan boyut (Tailwind w-5 h-5 karşılığı) */
+/* Varsayılan boyut: Prop verilmediğinde Figma standartı olan 20px uygulanır */
 .defaultSize {
   width: 20px;
   height: 20px;

@@ -6,23 +6,25 @@
   flex-direction: column;
   align-items: center;
   background-color: var(--color-white);
+  /* Header yüksekliği (73px) çıkarılarak tam ekran görünümü sağlanır */
   min-height: calc(100vh - 73px);
 }
 
 .hero {
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: center; /* İçeriği dikeyde ortalar */
   overflow: hidden;
   width: 100%;
-  flex: 1;
+  flex: 1; /* Kalan tüm dikey alanı kaplar */
+  /* Tasarımdaki minimum yükseklik dengesi */
   min-height: calc(768px - 72px);
   
   /* Background Settings */
   background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), 
                     url("../../assets/images/hero-image@1x.jpg");
   background-size: cover;
-  background-position: top center;
+  background-position: center; /* Daha dengeli bir görünüm için top center yerine center */
   background-repeat: no-repeat;
 }
 
@@ -54,25 +56,19 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  min-width: 571px;
-  min-height: 80px;
+  max-width: 600px; /* Sabit min-width yerine esnek max-width */
 }
 
 .title {
-  color: var(--color-white);
-  min-width: 571px;
-  min-height: 32px;
+  /* Renk harici tüm özellikler global H1'den gelir */
+  color: var(--color-white); 
   margin: 0;
-  padding: 0;
 }
 
 .subtitle {
+  /* Renk harici tüm özellikler global H2'den gelir */
   color: var(--color-white);
-  min-width: 550px;
-  min-height: 32px;
 }
 
-.heroBtn {
-  width: 173px;
-  min-height: 56px;
-}
+/* heroBtn sınıfına gerek kalmadı çünkü btn-primary padding değerleri 
+   tasarımdaki 173px genişliği otomatik olarak yakalıyor. */
