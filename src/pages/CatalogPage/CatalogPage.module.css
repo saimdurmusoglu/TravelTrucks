@@ -146,6 +146,20 @@
   width: 100%;
 }
 
+/* Spacing for Rating and Location row */
+.infoRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 .camperName {
   margin: 0;
   display: -webkit-box;
@@ -161,6 +175,48 @@
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+/* Favorite Button: White background, no border */
+.favoriteBtn {
+  background: var(--color-white) !important;
+  border: none !important;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+  outline: none;
+}
+
+.favoriteBtn:hover {
+  transform: scale(1.1);
+}
+
+/* --- BADGE SECTION --- */
+.badgeList {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 8px;
+  width: 100%;
+}
+
+/* Overriding global.css restrictions */
+.badgeList :global(.category-badge) {
+  max-width: none !important;
+  width: auto !important;
+  flex-shrink: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.badgeList :global(.category-badge span) {
+  flex: none !important;
+  width: auto !important;
+  overflow: visible !important;
+  white-space: nowrap !important;
 }
 
 .description {
@@ -218,7 +274,6 @@
   }
 }
 
-/* 1203px sınırında kart dikey (column) yapıya geçer */
 @media (max-width: 1203px) {
   .card {
     flex-direction: column;
@@ -231,35 +286,74 @@
     width: 100%;
     height: 320px;
   }
-
-  /* Bu aşamada başlık ve fiyat hala yan yana (sol-sağ) durur */
-  .namePriceRow {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
 }
 
-/* Yeni Mobil Sınırı: 600px ve altında başlık ve fiyat alt alta düşer */
+/* Mobile: Under 600px */
 @media (max-width: 600px) {
   .container {
-    padding: 32px 20px;
+    padding: 24px 16px;
   }
 
+  /* Horizontal layout with smaller fonts */
   .namePriceRow {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row; 
+    justify-content: space-between;
+    align-items: center;
     gap: 8px;
   }
 
-  .imageWrapper {
-    height: 220px;
+  .camperName, .priceWrapper h2 {
+    font-size: 18px; 
+  }
+
+  .infoRow {
+    flex-direction: row; 
+    justify-content: flex-start;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .infoItem {
+    font-size: 12px;
+  }
+
+  .infoItem :global(svg) {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Badges: Vertical block stack, left aligned */
+  .badgeList {
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 8px;
+  }
+
+  .badgeList :global(.category-badge) {
+    width: auto !important;
+    height: 40px; 
+    padding: 8px 12px;
+    justify-content: flex-start !important;
   }
 
   .description {
+    font-size: 14px;
     -webkit-line-clamp: 2;
     line-clamp: 2;
+  }
+}
+
+/* Small Mobile: Under 440px - Price drops down */
+@media (max-width: 440px) {
+  .namePriceRow {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px;
+  }
+
+  .priceWrapper {
+    width: 100%;
+    justify-content: space-between;
   }
 }
 

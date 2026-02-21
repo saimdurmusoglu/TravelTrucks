@@ -1,5 +1,4 @@
-/* src/components/Features/Features.module.css */
-
+/* --- COMPONENT LAYOUT --- */
 .featuresWrapper {
   display: flex;
   flex-direction: column;
@@ -10,13 +9,12 @@
   box-sizing: border-box;
 }
 
-/* Equipment badge container with responsive layout constraints */
 .badgeList {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   width: 100%;
-  max-width: 527px; /* Limits width on desktop to maintain design integrity */
+  max-width: 527px;
   align-items: flex-start;
 }
 
@@ -28,10 +26,10 @@
 
 .featureBadge {
   background-color: var(--color-badges);
-  max-width: none !important; /* Overrides global restrictions for flexible badges */
+  max-width: none !important; /* Overriding global badge constraints */
 }
 
-/* Section title with separation border */
+/* --- TECHNICAL SPECIFICATIONS TABLE --- */
 .tableTitle {
   color: var(--color-main);
   border-bottom: 1px solid var(--color-gray-light);
@@ -45,7 +43,6 @@
   gap: 14px;
 }
 
-/* Individual technical spec rows with space-between alignment */
 .tableRow {
   display: flex;
   justify-content: space-between;
@@ -54,7 +51,6 @@
 
 /* --- RESPONSIVE ADAPTATIONS --- */
 
-/* Tablets and medium screens */
 @media (max-width: 768px) {
   .featuresWrapper {
     padding: 24px 20px;
@@ -62,16 +58,16 @@
   }
 }
 
-/* Small mobile devices */
 @media (max-width: 480px) {
+  /* Stack badges vertically on small mobile devices */
   .badgeList {
-    flex-direction: column; /* Stack badges vertically for better mobile readability */
+    flex-direction: column;
     align-items: stretch;
     max-width: 100%;
   }
 
   .featureBadge {
-    width: 100% !important; /* Full width badges on small screens */
+    width: 100% !important;
     justify-content: flex-start;
   }
 }

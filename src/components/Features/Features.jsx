@@ -23,7 +23,7 @@ const Features = ({ camper }) => {
     { key: "TV", icon: "tv", label: () => "TV" },
     { key: "radio", icon: "ui-radios", label: () => "Radio" },
     { key: "bathroom", icon: "ph_shower", label: () => "Bathroom" },
-    { key: "refrigerator", icon: "solar_fridge-linear", label: () => "Refrigerator" },
+    { key: "refrigerator", icon: "solar_fridge-outline", label: () => "Refrigerator" },
     { key: "microwave", icon: "lucide_microwave", label: () => "Microwave" },
     { key: "gas", icon: "hugeicons_gas-stove", label: () => "Gas" },
     { key: "water", icon: "ion_water-outline", label: () => "Water" },
