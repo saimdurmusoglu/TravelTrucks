@@ -135,6 +135,7 @@
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 1;
+  line-clamp: 1; /* Standard property for compatibility */
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -170,6 +171,7 @@
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 1;
+  line-clamp: 1; /* Standard property for compatibility */
   -webkit-box-orient: vertical;
   overflow: hidden;
   color: var(--color-gray);
@@ -181,11 +183,11 @@
   gap: 8px;
 }
 
-/* Updated: 40px margin from the last card as requested */
+/* 40px margin from the last card as requested */
 .loadMoreWrapper {
   display: flex;
   justify-content: center;
-  padding: 16px 0 64px 0;
+  padding: 40px 0 64px 0;
 }
 
 /* --- RESPONSIVE ADAPTATIONS --- */
@@ -221,11 +223,14 @@
     height: 220px;
   }
 
-  /* Compact typography for mobile */
   .camperName, .priceWrapper h2 { font-size: 18px !important; }
-  .description { font-size: 14px; -webkit-line-clamp: 2; }
+  
+  .description { 
+    font-size: 14px; 
+    -webkit-line-clamp: 2; 
+    line-clamp: 2; 
+  }
 
-  /* Flexible badges for better mobile fit */
   .badgeList {
     display: flex;
     flex-wrap: wrap; 
@@ -245,7 +250,6 @@
     white-space: nowrap;
   }
 
-  /* Auto-width button to prevent full-screen stretch */
   :global(.btn-primary) {
     padding: 10px 24px !important;
     font-size: 14px !important;
@@ -261,7 +265,7 @@
   }
 
   .loadMoreWrapper {
-    padding: 8px 0 32px;
+    padding: 40px 0;
   }
 }
 

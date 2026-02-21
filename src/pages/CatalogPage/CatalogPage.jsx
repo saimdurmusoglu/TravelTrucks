@@ -6,25 +6,17 @@ import Icon from "../../components/shared/Icon";
 import Loader from "../../components/shared/Loader/Loader";
 import styles from "./CatalogPage.module.css";
 
-/**
- * CatalogPage component manages the camper listing, backend filtering, and pagination.
- * Key Requirements: 
- * - Backend-based filtering.
- * - Persistent pagination with "Load More".
- * - External link handling for item details.
- */
 const CatalogPage = () => {
   const dispatch = useDispatch();
   
   const { items, isLoading, page, hasMore } = useSelector((state) => state.campers);
   const favorites = useSelector((state) => state.favorites.items || []);
 
-  // Local state for filter parameters
+  // Default value set to "Kyiv, Ukraine" as requested
   const [location, setLocation] = useState("");
   const [activeEquipment, setActiveEquipment] = useState([]);
   const [activeType, setActiveType] = useState("");
 
-  // Map for camper equipment badges displayed on cards
   const featureMap = [
     { 
       key: "transmission", 
@@ -42,45 +34,47 @@ const CatalogPage = () => {
     { key: "bathroom", icon: "ph_shower", label: () => "Bathroom" },
   ];
 
-  /**
-   * Fetches data from the API with current page and filter parameters.
-   * Memoized with useCallback to prevent unnecessary re-renders.
-   */
   const fetchPageData = useCallback(() => {
+    let formattedLocation = location.trim();
+    
+    // Logic to handle "City, Country" -> "Country, City" for API compatibility
+    if (formattedLocation.includes(',')) {
+      const parts = formattedLocation.split(',').map(p => p.trim());
+      if (parts.length === 2) {
+        formattedLocation = `${parts[1]}, ${parts[0]}`;
+      }
+    }
+
     const params = {
       page,
       limit: 4,
-      location: location || undefined,
+      location: formattedLocation || undefined,
       form: activeType || undefined,
     };
 
-    // Append selected equipment to query parameters
     activeEquipment.forEach((feat) => {
-      params[feat] = true;
+      if (feat === "transmission") {
+        params.transmission = "automatic";
+      } else {
+        params[feat] = true;
+      }
     });
 
     dispatch(getCampers(params));
   }, [dispatch, page, location, activeType, activeEquipment]);
 
-  // Triggers data fetching when page number changes
   useEffect(() => {
     fetchPageData();
   }, [page]); 
 
-  // Toggle selection for equipment filters
   const toggleEquipment = (id) => {
     setActiveEquipment((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
   };
 
-  /**
-   * Handles the search action.
-   * Clears existing items and resets page to 1 for a fresh backend search.
-   */
   const handleSearch = () => {
     dispatch(resetItems()); 
-    // If page is already 1, useEffect won't trigger; call manually
     if (page === 1) {
       fetchPageData();
     }
@@ -90,14 +84,12 @@ const CatalogPage = () => {
     dispatch(incrementPage());
   };
 
-  // Requirement: Opens details in a new browser tab
   const handleShowMore = (id) => {
     window.open(`/catalog/${id}`, "_blank");
   };
 
   return (
     <div className={styles.container}>
-      {/* Sidebar: Filtering controls */}
       <aside className={styles.sidebar}>
         <div className={styles.filterGroup}>
           <label className={styles.filterLabel}>Location</label>
@@ -116,7 +108,6 @@ const CatalogPage = () => {
         <div className={styles.filtersSection}>
           <p className={styles.filterTitle}>Filters</p>
           
-          {/* Equipment Filters */}
           <div>
             <h3 className={styles.sectionSubtitle}>Vehicle equipment</h3>
             <div className={styles.filterGrid}>
@@ -141,7 +132,6 @@ const CatalogPage = () => {
             </div>
           </div>
 
-          {/* Vehicle Type Filters */}
           <div>
             <h3 className={styles.sectionSubtitle}>Vehicle type</h3>
             <div className={styles.filterGrid}>
@@ -168,7 +158,6 @@ const CatalogPage = () => {
         <button onClick={handleSearch} className="btn-primary">Search</button>
       </aside>
 
-      {/* Main Content: Camper List */}
       <main className={styles.mainContent}>
         {items.length === 0 && !isLoading ? (
           <div className={styles.noResults}>
@@ -250,7 +239,6 @@ const CatalogPage = () => {
             
             {isLoading && <Loader />}
 
-            {/* Pagination mechanism: Displayed if more items exist and not currently loading */}
             {hasMore && !isLoading && items.length > 0 && (
               <div className={styles.loadMoreWrapper}>
                 <button onClick={handleLoadMore} className="btn-secondary">Load more</button>
