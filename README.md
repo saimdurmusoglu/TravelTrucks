@@ -52,6 +52,13 @@ All filtering and pagination processes are handled on the backend via MockAPI.
 
 The project includes the necessary routing configuration (_redirects) to prevent 404 errors on platforms like Vercel or Netlify.
 
+---
+## 👤 Author
+**Saim Durmuşoğlu**
+- GitHub: [@saimdurmusoglu](https://github.com/saimdurmusoglu)
+- LinkedIn: [Your Profile Link](https://linkedin.com/in/saim-durmusoglu)
+
+
 # -------------------- TÜRKÇE VERSİYON ---------------
 # TravelTrucks - Karavan Kiralama Platformu
 
@@ -105,3 +112,9 @@ Uygulama, fiyatları şartname gereği iki ondalık basamaklı (8000.00) formatt
 Tüm filtreleme ve sayfalandırma işlemleri MockAPI üzerinden backend tarafında gerçekleştirilmektedir.
 
 Proje, Vercel/Netlify gibi platformlarda routing hatası almaması için gerekli yönlendirme yapılandırmasına uygundur.
+
+---
+## 👤 Hazırlayan
+**Saim Durmuşoğlu**
+- GitHub: [@saimdurmusoglu](https://github.com/saimdurmusoglu)
+- LinkedIn: [Your Profile Link](https://linkedin.com/in/saim-durmusoglu)

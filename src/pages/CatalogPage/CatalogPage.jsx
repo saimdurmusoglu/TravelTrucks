@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { getCampers, resetItems, incrementPage } from "../../redux/campersSlice";
 import { toggleFavorite } from "../../redux/favoritesSlice";
 import Icon from "../../components/shared/Icon";
@@ -9,21 +8,21 @@ import styles from "./CatalogPage.module.css";
 
 const CatalogPage = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   
   const { items, isLoading, page, hasMore } = useSelector((state) => state.campers);
   const favorites = useSelector((state) => state.favorites.items || []);
 
+  // Yerel Filtre State'leri
   const [location, setLocation] = useState("");
   const [activeEquipment, setActiveEquipment] = useState([]);
   const [activeType, setActiveType] = useState("");
 
-  // GÜNCELLENMİŞ featureMap: Şanzıman ve Motor tipi için esnek yapı
+  // Kart üzerindeki özelliklerin haritası
   const featureMap = [
     { 
       key: "transmission", 
       icon: "diagram", 
-      label: (val) => val ? val.charAt(0).toUpperCase() + val.slice(1) : null 
+      label: (val) => val === "automatic" ? "Automatic" : null 
     },
     { 
       key: "engine", 
@@ -33,10 +32,10 @@ const CatalogPage = () => {
     { key: "AC", icon: "wind", label: () => "AC" },
     { key: "kitchen", icon: "cup-hot", label: () => "Kitchen" },
     { key: "TV", icon: "tv", label: () => "TV" },
-    { key: "radio", icon: "ui-radios", label: () => "Radio" },
     { key: "bathroom", icon: "ph_shower", label: () => "Bathroom" },
   ];
 
+  // API'den veri çekme fonksiyonu
   const fetchPageData = useCallback(() => {
     const params = {
       page,
@@ -45,6 +44,7 @@ const CatalogPage = () => {
       form: activeType || undefined,
     };
 
+    // Seçili ekipmanları API parametrelerine (query params) ekle
     activeEquipment.forEach((feat) => {
       params[feat] = true;
     });
@@ -52,26 +52,39 @@ const CatalogPage = () => {
     dispatch(getCampers(params));
   }, [dispatch, page, location, activeType, activeEquipment]);
 
+  // Sayfalandırma tetikleyicisi
   useEffect(() => {
     fetchPageData();
-  }, [fetchPageData]); 
+  }, [page]); // Sadece sayfa numarası değiştiğinde tetiklenir
 
+  // Filtreleme (Ekipman) seçimi
   const toggleEquipment = (id) => {
     setActiveEquipment((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
   };
 
+  // 🚨 ŞARTNAME: Filtreleme işlemi backend tarafında yapılmalı ve eski sonuçlar temizlenmeli.
   const handleSearch = () => {
-    dispatch(resetItems());
+    dispatch(resetItems()); // Redux state'i temizler ve page'i 1 yapar.
+    // Eğer sayfa zaten 1 ise useEffect tetiklenmeyeceği için manuel çağırıyoruz:
+    if (page === 1) {
+      fetchPageData();
+    }
   };
 
   const handleLoadMore = () => {
     dispatch(incrementPage());
   };
 
+  // 🚨 ŞARTNAME: Detay sayfasına geçiş yeni sekmede açılmalıdır.
+  const handleShowMore = (id) => {
+    window.open(`/catalog/${id}`, "_blank");
+  };
+
   return (
     <div className={styles.container}>
+      {/* Sidebar - Filtreleme Alanı */}
       <aside className={styles.sidebar}>
         <div className={styles.filterGroup}>
           <label className={styles.filterLabel}>Location</label>
@@ -89,6 +102,8 @@ const CatalogPage = () => {
 
         <div className={styles.filtersSection}>
           <p className={styles.filterTitle}>Filters</p>
+          
+          {/* Araç Ekipman Filtreleri */}
           <div>
             <h3 className={styles.sectionSubtitle}>Vehicle equipment</h3>
             <div className={styles.filterGrid}>
@@ -113,6 +128,7 @@ const CatalogPage = () => {
             </div>
           </div>
 
+          {/* Araç Tipi Filtreleri */}
           <div>
             <h3 className={styles.sectionSubtitle}>Vehicle type</h3>
             <div className={styles.filterGrid}>
@@ -135,9 +151,11 @@ const CatalogPage = () => {
             </div>
           </div>
         </div>
+        
         <button onClick={handleSearch} className="btn-primary">Search</button>
       </aside>
 
+      {/* Ana İçerik - Kart Listesi */}
       <main className={styles.mainContent}>
         {items.length === 0 && !isLoading ? (
           <div className={styles.noResults}>
@@ -148,7 +166,11 @@ const CatalogPage = () => {
             {items.map((camper) => (
               <div key={camper.id} className={styles.card}>
                 <div className={styles.imageWrapper}>
-                  <img src={camper.gallery?.[0]?.thumb} alt={camper.name} className={styles.image} />
+                  <img 
+                    src={camper.gallery?.[0]?.thumb} 
+                    alt={camper.name} 
+                    className={styles.image} 
+                  />
                 </div>
 
                 <div className={styles.details}>
@@ -189,9 +211,7 @@ const CatalogPage = () => {
                     {featureMap
                       .filter(f => {
                         const value = camper[f.key];
-                        // Sadece API'de 'true' olan veya değeri olanları süz
                         if (!value) return false;
-                        // Eğer bir label fonksiyonu varsa ve null dönüyorsa gösterme
                         if (typeof f.label === 'function' && f.label(value) === null) return false;
                         return true;
                       })
@@ -205,7 +225,10 @@ const CatalogPage = () => {
                       ))}
                   </div>
 
-                  <button className="btn-primary mt-auto" onClick={() => navigate(`/catalog/${camper.id}`)}>
+                  <button 
+                    className="btn-primary mt-auto" 
+                    onClick={() => handleShowMore(camper.id)}
+                  >
                     Show more
                   </button>
                 </div>
@@ -214,6 +237,7 @@ const CatalogPage = () => {
             
             {isLoading && <Loader />}
 
+            {/* 🚨 ŞARTNAME: Sayfalandırma mekanizması (Load More) */}
             {hasMore && !isLoading && items.length > 0 && (
               <div className={styles.loadMoreWrapper}>
                 <button onClick={handleLoadMore} className="btn-secondary">Load more</button>

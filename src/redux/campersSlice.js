@@ -27,18 +27,30 @@ const campersSlice = createSlice({
     error: null,
     page: 1,
     hasMore: true,
+    filters: {
+      location: "",
+      form: "",
+      features: {
+        AC: false,
+        kitchen: false,
+        TV: false,
+        bathroom: false,
+        transmission: "",
+      }
+    }
   },
   reducers: {
-    // Şartname: Filtre değiştiğinde önceki sonuçlar temizlenmelidir.
     resetItems: (state) => {
       state.items = [];
       state.page = 1;
       state.hasMore = true;
       state.error = null;
     },
-    // Şartname: Load More butonu tıklandığında sayfa artırılır.
     incrementPage: (state) => {
       state.page += 1;
+    },
+    setFilters: (state, action) => {
+      state.filters = { ...state.filters, ...action.payload };
     }
   },
   extraReducers: (builder) => {
