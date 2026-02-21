@@ -3,7 +3,7 @@
 .reviewsList {
   display: flex;
   flex-direction: column;
-  gap: 44px; /* Yorumlar arasındaki dikey mesafe */
+  gap: 44px; /* Vertical spacing between individual review entries */
   width: 100%;
   padding: 12px 0px;
 }
@@ -11,7 +11,7 @@
 .reviewItem {
   display: flex;
   flex-direction: column;
-  gap: 16px; /* İsim bloğu ile yorum metni arası mesafe */
+  gap: 16px; /* Spacing between the header and the comment text */
 }
 
 .reviewerInfo {
@@ -20,7 +20,7 @@
   align-items: center;
 }
 
-/* Profil harf ikonu */
+/* Round avatar placeholder for the reviewer's initial */
 .avatar {
   width: 60px;
   height: 60px;
@@ -41,7 +41,7 @@
 
 .reviewerName {
   color: var(--color-main);
-  font-weight: 600; /* Body2'ye ek olarak belirginlik */
+  font-weight: 600; /* Enhances visual hierarchy for the reviewer's name */
 }
 
 .starsRow {
@@ -54,17 +54,18 @@
   line-height: 1.5;
 }
 
-/* --- RESPONSIVE GÜNCELLEMELER --- */
+/* --- RESPONSIVE ADAPTATIONS --- */
 
+/* Tablets and medium screens */
 @media (max-width: 768px) {
   .reviewsList {
-    gap: 32px; /* Mobilde yorumlar arası mesafeyi biraz daralttık */
+    gap: 32px;
   }
 
   .avatar {
-    width: 50px; /* Avatarı biraz ufalttık */
+    width: 50px;
     height: 50px;
-    font-size: 18px; /* İçindeki harfi ufalttık */
+    font-size: 18px;
   }
 
   .reviewerName {
@@ -72,18 +73,19 @@
   }
 
   .comment {
-    font-size: 14px; /* Body (16px) metnini 14px'e çektik */
+    font-size: 14px;
     line-height: 20px;
   }
 }
 
+/* Small mobile devices */
 @media (max-width: 480px) {
   .reviewsList {
     gap: 24px;
   }
 
   .avatar {
-    width: 44px; /* En küçük ekranlar için ideal profil boyutu */
+    width: 44px;
     height: 44px;
     font-size: 16px;
   }
@@ -93,7 +95,7 @@
   }
 
   .comment {
-    font-size: 13px; /* Daha okunaklı ama kompakt bir boyut */
+    font-size: 13px;
     line-height: 18px;
   }
 

@@ -1,21 +1,25 @@
-import sprite from '../../assets/icons-sprite.svg'; // Tüm ikonların toplandığı SVG dosyası
-import styles from './Icon.module.css'; // İkon temel stilleri
+import sprite from '../../assets/icons-sprite.svg'; 
+import styles from './Icon.module.css';
 
+/**
+ * Shared Icon component for rendering SVG sprites.
+ * Supports dynamic sizing, custom coloring, and fallback to default 20x20 dimensions.
+ */
 const Icon = ({ id, className = "", width, height, color }) => {
-  // Eğer width veya height dışarıdan (prop olarak) gelmediyse varsayılan boyutu kullanır
+  // Check if specific dimensions are provided via props
   const isDefaultSize = !width && !height;
 
   return (
     <svg 
-      // styles.icon: Temel ayarlar, styles.defaultSize: 20x20 kuralı, className: Dışarıdan gelen ekstra sınıflar
+      // Combines base icon styles, default size logic, and any external classes
       className={`${styles.icon} ${isDefaultSize ? styles.defaultSize : ''} ${className}`}
       style={{ 
         width: width ? `${width}px` : undefined, 
         height: height ? `${height}px` : undefined,
-        color: color ? color : undefined // İkonun rengini dinamik olarak değiştirebilmek için (örn: sarı yıldız)
+        color: color ? color : undefined // Allows dynamic color overrides (e.g., star ratings)
       }}
     >
-      {/* Sprite içindeki ilgili ikonun ID'sini çağırır */}
+      {/* Reference the specific icon ID within the SVG sprite map */}
       <use href={`${sprite}#${id}`} />
     </svg>
   );

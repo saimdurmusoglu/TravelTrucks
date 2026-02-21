@@ -6,18 +6,25 @@ import Icon from "../../components/shared/Icon";
 import Loader from "../../components/shared/Loader/Loader";
 import styles from "./CatalogPage.module.css";
 
+/**
+ * CatalogPage component manages the camper listing, backend filtering, and pagination.
+ * Key Requirements: 
+ * - Backend-based filtering.
+ * - Persistent pagination with "Load More".
+ * - External link handling for item details.
+ */
 const CatalogPage = () => {
   const dispatch = useDispatch();
   
   const { items, isLoading, page, hasMore } = useSelector((state) => state.campers);
   const favorites = useSelector((state) => state.favorites.items || []);
 
-  // Yerel Filtre State'leri
+  // Local state for filter parameters
   const [location, setLocation] = useState("");
   const [activeEquipment, setActiveEquipment] = useState([]);
   const [activeType, setActiveType] = useState("");
 
-  // Kart üzerindeki özelliklerin haritası
+  // Map for camper equipment badges displayed on cards
   const featureMap = [
     { 
       key: "transmission", 
@@ -35,7 +42,10 @@ const CatalogPage = () => {
     { key: "bathroom", icon: "ph_shower", label: () => "Bathroom" },
   ];
 
-  // API'den veri çekme fonksiyonu
+  /**
+   * Fetches data from the API with current page and filter parameters.
+   * Memoized with useCallback to prevent unnecessary re-renders.
+   */
   const fetchPageData = useCallback(() => {
     const params = {
       page,
@@ -44,7 +54,7 @@ const CatalogPage = () => {
       form: activeType || undefined,
     };
 
-    // Seçili ekipmanları API parametrelerine (query params) ekle
+    // Append selected equipment to query parameters
     activeEquipment.forEach((feat) => {
       params[feat] = true;
     });
@@ -52,22 +62,25 @@ const CatalogPage = () => {
     dispatch(getCampers(params));
   }, [dispatch, page, location, activeType, activeEquipment]);
 
-  // Sayfalandırma tetikleyicisi
+  // Triggers data fetching when page number changes
   useEffect(() => {
     fetchPageData();
-  }, [page]); // Sadece sayfa numarası değiştiğinde tetiklenir
+  }, [page]); 
 
-  // Filtreleme (Ekipman) seçimi
+  // Toggle selection for equipment filters
   const toggleEquipment = (id) => {
     setActiveEquipment((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
   };
 
-  // 🚨 ŞARTNAME: Filtreleme işlemi backend tarafında yapılmalı ve eski sonuçlar temizlenmeli.
+  /**
+   * Handles the search action.
+   * Clears existing items and resets page to 1 for a fresh backend search.
+   */
   const handleSearch = () => {
-    dispatch(resetItems()); // Redux state'i temizler ve page'i 1 yapar.
-    // Eğer sayfa zaten 1 ise useEffect tetiklenmeyeceği için manuel çağırıyoruz:
+    dispatch(resetItems()); 
+    // If page is already 1, useEffect won't trigger; call manually
     if (page === 1) {
       fetchPageData();
     }
@@ -77,14 +90,14 @@ const CatalogPage = () => {
     dispatch(incrementPage());
   };
 
-  // 🚨 ŞARTNAME: Detay sayfasına geçiş yeni sekmede açılmalıdır.
+  // Requirement: Opens details in a new browser tab
   const handleShowMore = (id) => {
     window.open(`/catalog/${id}`, "_blank");
   };
 
   return (
     <div className={styles.container}>
-      {/* Sidebar - Filtreleme Alanı */}
+      {/* Sidebar: Filtering controls */}
       <aside className={styles.sidebar}>
         <div className={styles.filterGroup}>
           <label className={styles.filterLabel}>Location</label>
@@ -103,7 +116,7 @@ const CatalogPage = () => {
         <div className={styles.filtersSection}>
           <p className={styles.filterTitle}>Filters</p>
           
-          {/* Araç Ekipman Filtreleri */}
+          {/* Equipment Filters */}
           <div>
             <h3 className={styles.sectionSubtitle}>Vehicle equipment</h3>
             <div className={styles.filterGrid}>
@@ -128,7 +141,7 @@ const CatalogPage = () => {
             </div>
           </div>
 
-          {/* Araç Tipi Filtreleri */}
+          {/* Vehicle Type Filters */}
           <div>
             <h3 className={styles.sectionSubtitle}>Vehicle type</h3>
             <div className={styles.filterGrid}>
@@ -155,7 +168,7 @@ const CatalogPage = () => {
         <button onClick={handleSearch} className="btn-primary">Search</button>
       </aside>
 
-      {/* Ana İçerik - Kart Listesi */}
+      {/* Main Content: Camper List */}
       <main className={styles.mainContent}>
         {items.length === 0 && !isLoading ? (
           <div className={styles.noResults}>
@@ -211,7 +224,7 @@ const CatalogPage = () => {
                     {featureMap
                       .filter(f => {
                         const value = camper[f.key];
-                        if (!value) return false;
+                        if (!value || value === "false") return false;
                         if (typeof f.label === 'function' && f.label(value) === null) return false;
                         return true;
                       })
@@ -237,7 +250,7 @@ const CatalogPage = () => {
             
             {isLoading && <Loader />}
 
-            {/* 🚨 ŞARTNAME: Sayfalandırma mekanizması (Load More) */}
+            {/* Pagination mechanism: Displayed if more items exist and not currently loading */}
             {hasMore && !isLoading && items.length > 0 && (
               <div className={styles.loadMoreWrapper}>
                 <button onClick={handleLoadMore} className="btn-secondary">Load more</button>

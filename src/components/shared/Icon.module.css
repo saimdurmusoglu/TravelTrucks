@@ -2,15 +2,15 @@
 
 .icon {
   display: inline-block;
-  /* 'currentColor' sayesinde ikon rengini dışarıdaki metin renginden (color) alır */
+  /* Using 'currentColor' allows the icon to inherit its color from the parent text color */
   fill: currentColor;
-  stroke: none; /* Sprite yapısına göre gerekirse stroke: currentColor yapılabilir */
+  stroke: none; 
   flex-shrink: 0;
   transition: fill 0.3s ease, stroke 0.3s ease;
-  vertical-align: middle; /* Metinle yan yana geldiğinde daha düzgün durması için */
+  vertical-align: middle; /* Ensures better alignment when placed next to text */
 }
 
-/* Varsayılan boyut: Prop verilmediğinde Figma standartı olan 20px uygulanır */
+/* Default size: Fallback to Figma standard 20px if no dimension props are provided */
 .defaultSize {
   width: 20px;
   height: 20px;

@@ -7,8 +7,11 @@
   flex-direction: column;
 }
 
+/* Ensures the main content area expands to fill all remaining vertical space 
+  between the fixed header and the bottom of the viewport.
+*/
 .mainContent {
-  flex: 1; /* Header'dan kalan tüm alanı doldurur */
+  flex: 1; 
   display: flex;
   flex-direction: column;
 }

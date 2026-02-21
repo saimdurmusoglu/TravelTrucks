@@ -2,16 +2,16 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchCampers } from '../services/api';
 
 /**
- * Teknik Şartname: API istekleri asenkron olarak Redux Thunk ile yönetilir.
- * Backend tarafında filtreleme ve sayfalandırma için params iletilir.
+ * Async Thunk for fetching campers from the backend.
+ * Requirement: Handles asynchronous API requests with support for 
+ * backend-based filtering and pagination via params.
  */
 export const getCampers = createAsyncThunk(
   'campers/fetchAll',
   async (params, { rejectWithValue }) => {
     try {
       const response = await fetchCampers(params);
-      // MockAPI genellikle { items: [], total: 10 } yapısında veri döner.
-      // Eğer response.data direkt diziyse onu, değilse içindeki items'ı alıyoruz.
+      // Handles both direct array responses and object-wrapped (e.g., MockAPI) items
       return response.data; 
     } catch (error) {
       return rejectWithValue(error.message);
@@ -40,12 +40,14 @@ const campersSlice = createSlice({
     }
   },
   reducers: {
+    // Clears the list and resets pagination state for fresh searches
     resetItems: (state) => {
       state.items = [];
       state.page = 1;
       state.hasMore = true;
       state.error = null;
     },
+    // Increases current page for infinite scroll or "Load More" functionality
     incrementPage: (state) => {
       state.page += 1;
     },
@@ -62,20 +64,22 @@ const campersSlice = createSlice({
       .addCase(getCampers.fulfilled, (state, action) => {
         state.isLoading = false;
 
-        // MockAPI veri yapısına göre veri çekme (Kritik Düzeltme)
+        // Extract items regardless of API response structure
         const newItems = Array.isArray(action.payload) 
           ? action.payload 
           : action.payload.items || [];
 
-        // Eğer ilk sayfa ise listeyi sıfırdan oluştur, değilse üzerine ekle
+        // Technical Spec: Logic to append new data or replace it (for new searches)
         if (state.page === 1) {
           state.items = newItems;
         } else {
           state.items = [...state.items, ...newItems];
         }
 
-        // Şartname: Sayfalandırma mekanizması (Load More kontrolü)
-        // Eğer gelen veri limit (4) değerinden azsa buton gizlenir.
+        /**
+         * Requirement: Pagination Mechanism (Load More control)
+         * If the returned items are fewer than the limit (4), disable 'hasMore'.
+         */
         if (newItems.length < 4) {
           state.hasMore = false;
         } else {
@@ -85,7 +89,7 @@ const campersSlice = createSlice({
       .addCase(getCampers.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-        // Hata durumunda da sonsuz döngü olmaması için hasMore kapatılabilir
+        // Prevents further fetch attempts on failure
         state.hasMore = false;
       });
   },

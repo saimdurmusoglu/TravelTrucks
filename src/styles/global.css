@@ -1,8 +1,8 @@
 /* src/styles/global.css */
 
-/* 1. CSS Değişkenleri (Variables) */
+/* 1. DESIGN SYSTEM VARIABLES */
 :root {
-  /* Colors */
+  /* Color Palette */
   --color-main: #101828;
   --color-text: #475467;
   --color-gray: #6C717B;
@@ -14,10 +14,10 @@
   --color-inputs: #F7F7F7;
   --color-white: #FFFFFF;
 
-  /* Typography values */
+  /* Typography Configuration */
   --font-inter: "Inter", sans-serif;
 
-  /* Font Sizes & Line Heights */
+  /* Heading Styles */
   --fs-h1: 48px;
   --lh-h1: 32px;
   --fw-h1: 600;
@@ -30,6 +30,7 @@
   --lh-h3: 24px;
   --fw-h3: 600;
 
+  /* Body Styles */
   --fs-body: 16px;
   --lh-body: 24px;
   --fw-body: 400;
@@ -38,15 +39,16 @@
   --lh-body2: 24px;
   --fw-body2: 500;
 
+  /* Interactive Elements */
   --fs-button: 16px;
   --lh-button: 24px;
   --fw-button: 500;
 
-  /* Container */
+  /* Layout Constraints */
   --container-max-width: 1440px;
 }
 
-/* 2. Base Styles (Temel Sıfırlama) */
+/* 2. BASE STYLES & CSS RESET */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -90,7 +92,7 @@ input, textarea, button {
   outline: none;
 }
 
-/* 3. Global Component Classes (Re-usable) */
+/* 3. REUSABLE COMPONENT CLASSES */
 
 /* Typography Utilities */
 .H1 { font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: var(--fw-h1); color: var(--color-main); }
@@ -106,7 +108,7 @@ input, textarea, button {
   text-underline-offset: 4px;
 }
 
-/* Buttons */
+/* Button Variants */
 .btn-primary {
   background-color: var(--color-button);
   color: var(--color-white);
@@ -137,7 +139,7 @@ input, textarea, button {
   color: var(--color-main);
   font-size: var(--fs-button);
   font-weight: var(--fw-button);
-  padding: 16px 32px; /* px-8 */
+  padding: 16px 32px;
   border-radius: 200px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -148,7 +150,7 @@ input, textarea, button {
   border-color: var(--color-button);
 }
 
-/* Forms */
+/* Form Controls */
 .input-wrapper {
   position: relative;
   display: flex;
@@ -156,44 +158,23 @@ input, textarea, button {
   width: 100%;
 }
 
-.input-main {
+.input-main, .input-main2 {
   width: 100%;
   background-color: var(--color-inputs);
   border: none;
   border-radius: 12px;
   padding: 18px 20px;
   font-size: var(--fs-body);
-  color: var(--color-gray);
   transition: all 0.3s ease;
 }
 
-.input-main::placeholder {
-  color: var(--color-gray);
-  opacity: 1;
-}
+.input-main { color: var(--color-gray); }
+.input-main2 { color: var(--color-main); }
 
-.input-main:focus {
-  box-shadow: 0 0 0 1px var(--color-gray-light);
-  color: var(--color-main);
-}
+.input-main::placeholder { color: var(--color-gray); opacity: 1; }
+.input-main2::placeholder { color: var(--color-main); opacity: 1; }
 
-.input-main2 {
-  width: 100%;
-  background-color: var(--color-inputs);
-  border: none;
-  border-radius: 12px;
-  padding: 18px 20px;
-  font-size: var(--fs-body);
-  color: var(--color-main);
-  transition: all 0.3s ease;
-}
-
-.input-main2::placeholder {
-  color: var(--color-main);
-  opacity: 1;
-}
-
-.input-main2:focus {
+.input-main:focus, .input-main2:focus {
   box-shadow: 0 0 0 1px var(--color-gray-light);
   color: var(--color-main);
 }
@@ -208,58 +189,39 @@ input, textarea, button {
 }
 
 .input-with-icon {
-  padding-left: 48px !important; /* pl-12 */
+  padding-left: 48px !important;
 }
 
-/* Badges */
+/* Data Badges */
 .category-badge {
   background-color: var(--color-badges);
   color: var(--color-main);
   border-radius: 100px;
-  
-  /* Rozetin içeriği (ikon+yazı) kadar genişlemesini sağlar */
   display: inline-flex; 
   align-items: center;
   justify-content: flex-start;
-  
-  /* Ölçülerin */
   padding: 12px 18px; 
   gap: 8px; 
   height: 48px;
   box-sizing: border-box;
-
-  /* Üst sınır: Bir satırda 3 taneden fazlasına izin vermez */
-  max-width: calc((100% - 16px) / 3); 
-  
   border: 1px solid transparent;
   transition: all 0.3s ease;
   cursor: pointer;
+  max-width: calc((100% - 16px) / 3); 
 }
 
 .category-badge svg {
   flex-shrink: 0;
   display: block;
-  overflow: visible;
-}
-
-/* Sprite içindeki ikonun 20x20 alana tam oturmasını sağlar */
-.category-badge svg use {
-  width: 100%;
-  height: 100%;
-  fill: currentColor;
 }
 
 .category-badge span {
-  /* Metin çok uzunsa ikonu itmek yerine kendini kessin */
   flex: 1;
   min-width: 0; 
   white-space: nowrap;
   overflow: hidden;
-  /* text-overflow: ellipsis; */
-  
   font-size: var(--fs-body2);
   font-weight: var(--fw-body2);
-  line-height: var(--lh-body2);
   text-transform: capitalize;
 }
 
@@ -267,30 +229,20 @@ input, textarea, button {
   border-color: var(--color-button);
 }
 
-/* --- Media Queries --- */
+/* 4. MEDIA QUERIES & RESPONSIVE FIXES */
 
-/* 1024px ve 1439px Arası Özel Düzenleme */
+/* Handling intermediate screen widths and preventing layout overflow */
 @media (min-width: 1024px) and (max-width: 1439px) {
-  
-  /* Features ve Booking kapsayıcı sınıfların hangisiyse onları buraya ekle. 
-     Örnek olarak genel kullanılan isimleri ekliyorum: */
-  .features-section, 
-  .booking-section,
   .container { 
     width: 100%;
-    max-width: 960px; /* Ya da tasarımına göre 1000px */
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 40px;  /* Sol padding */
-    padding-right: 40px; /* Sağ padding - Sarkmayı bu ve border-box önler */
-    display: block;      /* Yan yanaysalar alt alta gelmelerini sağlar */
-    float: none;         /* Eğer eski bir float yapısı kaldıysa iptal eder */
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-left: 40px;
+    padding-right: 40px;
   }
 
-  /* Sayfanın sağa doğru taşmasını (sarkmasını) engellemek için */
   body, html {
     overflow-x: hidden;
     width: 100%;
-    position: relative;
   }
 }

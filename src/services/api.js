@@ -1,29 +1,29 @@
-import axios from 'axios'; // HTTP istekleri için axios kütüphanesi
+import axios from 'axios';
 
-// Axios yapılandırması: Genel ayarların yapıldığı bir örnek (instance) oluşturulur
+/**
+ * Axios instance configuration.
+ * Centralizes the base URL for MockAPI to ensure consistency across all requests.
+ */
 const api = axios.create({
-  // MockAPI ana adresi: Tüm istekler bu adres üzerinden gönderilir
   baseURL: 'https://66b1f8e71ca8ad33d4f5f63e.mockapi.io',
 });
 
 /**
- * Tüm kamp araçlarını getiren fonksiyon.
- * @param {Object} params - Sayfalama, filtreleme gibi isteğe bağlı parametreler.
- * @returns {Promise} API yanıtı.
+ * Fetches a list of campers from the /campers endpoint.
+ * @param {Object} params - Optional parameters for backend-side filtering and pagination.
+ * @returns {Promise} Axios response promise.
  */
 export const fetchCampers = (params) => {
-  // GET isteği: /campers endpoint'ine gönderilir, varsa parametreler eklenir
   return api.get('/campers', { params });
 };
 
 /**
- * Belirli bir kamp aracının detaylarını getiren fonksiyon.
- * @param {string} id - Detayı istenen aracın benzersiz kimliği.
- * @returns {Promise} API yanıtı.
+ * Fetches the detailed information of a specific camper.
+ * @param {string} id - The unique identifier of the camper.
+ * @returns {Promise} Axios response promise.
  */
 export const fetchCamperDetails = (id) => {
-  // GET isteği: Dinamik ID kullanılarak spesifik bir araca erişilir
   return api.get(`/campers/${id}`);
 };
 
-export default api; // Varsayılan olarak api örneğini dışa aktar
+export default api;

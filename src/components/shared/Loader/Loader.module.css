@@ -1,41 +1,40 @@
-/* --- LOADER YERLEŞİMİ --- */
+/* src/components/Loader/Loader.module.css */
+
+/* Main container for centering the loader within parent elements */
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 300px; /* Katalog sayfasında boşluk yaratmaması için ideal yükseklik */
+  min-height: 300px; /* Provides sufficient vertical space during catalog loading */
   width: 100%;
 }
 
-/* --- SPINNER TASARIMI --- */
+/* Spinner design utilizing project-wide color variables */
 .spinner {
   width: 50px;
   height: 50px;
-  /* Arka plan halkası için tasarım sistemindeki badge rengini kullanıyoruz */
+  /* Using badge color for the background ring */
   border: 5px solid var(--color-badges); 
-  /* Dönen kısmın rengi ana buton rengimiz (Kırmızı) */
+  /* Primary button color for the active spinning stroke */
   border-top: 5px solid var(--color-button); 
   border-radius: 50%;
-  /* Akıcı bir dönüş için 1 saniyelik lineer animasyon */
+  /* Smooth 1-second linear infinite rotation */
   animation: spin 1s linear infinite;
   margin-bottom: 20px;
 }
 
-/* --- METİN STİLİ --- */
+/* Typography styling for the loading message */
 .text {
-  /* Renk harici özellikler global Body2'den gelir */
   color: var(--color-text);
 }
 
-/* --- DÖNÜŞ ANİMASYONU --- */
+/* Keyframes for the circular rotation animation */
 @keyframes spin {
   0% { 
     transform: rotate(0deg); 
   }
   100% { 
-    /* 3600deg yerine 360deg daha standarttır; 
-       1s süresiyle birleşince yeterince akıcı olur */
     transform: rotate(360deg); 
   }
 }

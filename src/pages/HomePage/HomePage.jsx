@@ -1,28 +1,33 @@
-import { useNavigate } from "react-router-dom"; // Sayfa geçişleri için hook
-import styles from "./HomePage.module.css"; // Sayfaya özel stiller
+import { useNavigate } from "react-router-dom";
+import styles from "./HomePage.module.css";
 
+/**
+ * HomePage component serving as the landing page (Hero Section).
+ * It utilizes global typography and button styles to maintain design consistency.
+ */
 const HomePage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className={styles.wrapper}> {/* Tüm ekranı kaplayan kapsayıcı */}
-      <section className={styles.hero}> {/* Arka plan görselinin olduğu alan */}
-        <div className={styles.container}> {/* 1440px genişlik sınırlayıcı */}
+    <div className={styles.wrapper}>
+      {/* Hero section featuring the primary background image and call-to-action */}
+      <section className={styles.hero}>
+        <div className={styles.container}>
           <div className={styles.content}>
             <div className={styles.titleContainer}>
-              {/* Global H1 sınıfı ile ana başlık */}
+              {/* Main heading using the global H1 typography class */}
               <h1 className={`${styles.title} H1`}>
                 Campers of your dreams
               </h1>
-              {/* Global H2 sınıfı ile alt başlık */}
+              {/* Subheading using the global H2 typography class */}
               <p className={`${styles.subtitle} H2`}>
                 You can find everything you want in our catalog
               </p>
             </div>
 
-            {/* Global btn-primary sınıfı ile ana aksiyon butonu */}
+            {/* Primary Action Button: Navigates the user to the Catalog page */}
             <button
-              className="btn-primary" // Genişlik ve padding globalden geliyor
+              className="btn-primary"
               onClick={() => navigate("/catalog")}
             >
               View Now

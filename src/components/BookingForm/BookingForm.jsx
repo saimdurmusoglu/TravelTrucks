@@ -1,30 +1,31 @@
-// src/components/BookingForm/BookingForm.jsx
-import { toast } from 'react-toastify'; // Toast kütüphanesini içe aktar
+import { toast } from 'react-toastify';
 import Calendar from '../Calendar/Calendar'; 
 import styles from './BookingForm.module.css';
 
+/**
+ * BookingForm component handles user reservations.
+ * Requirement: Success notification must be displayed upon successful submission.
+ */
 const BookingForm = () => {
-  /**
-   * Teknik Şartname: Rezervasyon başarıyla tamamlandığında bir bildirim gösterilmelidir.
-   */
+  
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Form verilerini toplama
+    // Collect form data using FormData API
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
 
-    // ŞARTNAME KRİTİK MADDE: Profesyonel Bildirim Gösterimi
+    // CRITICAL: Professional notification display as per technical specifications
     toast.success("Reservation successful! We will contact you soon.", {
       position: "top-right",
       autoClose: 3000,
       theme: "colored",
     });
 
-    // Formu temizle
+    // Reset form fields after successful submission
     e.target.reset();
     
-    // Konsol çıktısı (Mülakat kontrolü için)
+    // Log data for technical evaluation purposes
     console.log("Booking Data Sent:", data);
   };
 
@@ -53,7 +54,7 @@ const BookingForm = () => {
           required 
         />
         
-        {/* Özel takvim bileşeni */}
+        {/* Custom Calendar integration for date selection */}
         <Calendar />
         
         <textarea 

@@ -1,6 +1,6 @@
 /* src/components/BookingForm/BookingForm.module.css */
 
-/* 1. Formun Genel Çerçevesi */
+/* Main form container based on Figma design specifications */
 .formCard {
   width: 100%;
   height: 100%;
@@ -30,24 +30,24 @@
   gap: 14px;
 }
 
-/* Textarea Ayarı */
+/* Specific styling for the comment textarea */
 .textarea {
   resize: none;
   min-height: 118px;
 }
 
-/* Buton (Masaüstü - Varsayılan Ortalı) */
+/* Submit button centered by default with content-based width */
 .submitBtn {
   margin-top: 24px;
-  align-self: center; /* Butonu ortalar */
+  align-self: center;
   padding: 16px 60px;
   cursor: pointer;
-  width: fit-content; /* Yazısı kadar yer kaplar */
+  width: fit-content;
 }
 
-/* --- RESPONSIVE GÜNCELLEMELER --- */
+/* --- RESPONSIVE ADAPTATIONS --- */
 
-/* Tablet ve Ara Ekranlar */
+/* Tablets and medium screens */
 @media (max-width: 768px) {
   .formCard {
     padding: 24px 20px;
@@ -70,14 +70,14 @@
   }
 
   .submitBtn {
-    align-self: center; /* Mobilde de ortalı kalmasını sağladık */
+    align-self: center;
     min-width: 150px;
     padding: 12px 32px;
     margin-top: 16px;
   }
 }
 
-/* Mobil Ekranlar */
+/* Mobile devices */
 @media (max-width: 480px) {
   .formCard {
     padding: 20px 16px;
@@ -93,14 +93,14 @@
     line-height: 18px;
   }
 
-  /* Global input sınıflarını mobil için ufalttık */
+  /* Adjust global input styles for mobile view */
   .form :global(.input-main) {
     padding: 14px 16px !important;
     font-size: 14px;
   }
 
   .submitBtn {
-    align-self: center; /* En küçük ekranlarda da ortalı */
+    align-self: center;
     min-width: 130px;
     padding: 10px 24px;
     font-size: 14px;

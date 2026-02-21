@@ -8,6 +8,10 @@ import BookingForm from "../../components/BookingForm/BookingForm";
 import Loader from "../../components/shared/Loader/Loader"; 
 import styles from "./DetailsPage.module.css";
 
+/**
+ * DetailsPage component for displaying comprehensive information about a specific camper.
+ * Handles data fetching, gallery layout adjustment, and tab-based navigation (Features/Reviews).
+ */
 const DetailsPage = () => {
   const { id } = useParams();
   const [camper, setCamper] = useState(null);
@@ -20,7 +24,7 @@ const DetailsPage = () => {
       try {
         const { data } = await fetchCamperDetails(id);
         
-        // Tasarım gereği galeri düzenlemesi: 3 resim varsa 4'e tamamla
+        // Gallery optimization: Ensure consistent layout by repeating the first image if needed
         if (data.gallery && data.gallery.length === 3) {
           data.gallery.push(data.gallery[0]);
         }
@@ -35,7 +39,7 @@ const DetailsPage = () => {
     getDetails();
   }, [id]);
 
-  // Loader Aktif
+  // Loading state with centered loader component
   if (loading) {
     return (
       <div className={styles.loaderWrapper}>
@@ -44,6 +48,7 @@ const DetailsPage = () => {
     );
   }
 
+  // Fallback for null data states
   if (!camper) return null;
 
   return (
@@ -51,7 +56,7 @@ const DetailsPage = () => {
       <div className={styles.titleWrapper}>
         <h2 className="H2">{camper.name}</h2>
 
-        {/* Rating ve Lokasyon */}
+        {/* Essential info: Star rating and location */}
         <div className={styles.infoRow}>
           <span className={`${styles.ratingLink} Body-underline`}>
             <Icon
@@ -63,19 +68,18 @@ const DetailsPage = () => {
             {camper.rating} ({camper.reviews?.length} Reviews)
           </span>
           <span className={styles.locationInfo}>
-            {/* CatalogPage ile uyum için id Map-small ve width 16px yapıldı */}
             <Icon id="Map-small" width="16" height="16" />
             {camper.location}
           </span>
         </div>
 
-        {/* Fiyat Bilgisi */}
+        {/* Pricing formatted according to technical requirements */}
         <p className={`H2 ${styles.price}`}>
           €{camper.price?.toFixed(2)}
         </p>
       </div>
 
-      {/* Görsel Galerisi */}
+      {/* Responsive Image Gallery */}
       <div className={styles.gallery}>
         {camper.gallery?.map((img, i) => (
           <div key={i} className={styles.imageWrapper}>
@@ -88,10 +92,10 @@ const DetailsPage = () => {
         ))}
       </div>
 
-      {/* Araç Açıklaması */}
+      {/* Main vehicle description */}
       <p className={`Body ${styles.description}`}>{camper.description}</p>
 
-      {/* Sekme Menüsü (Features / Reviews) */}
+      {/* Tabbed Navigation: Switches between Features and Reviews */}
       <div className={styles.tabs}>
         <button
           className={`${styles.tabItem} ${activeTab === "features" ? styles.activeTab : ""}`}
@@ -107,7 +111,7 @@ const DetailsPage = () => {
         </button>
       </div>
 
-      {/* Alt İçerik Alanı */}
+      {/* Content Area: Features/Reviews content alongside the Booking Form */}
       <div className={styles.contentBottom}>
         <div className={styles.tabContent}>
           {activeTab === "features" ? (

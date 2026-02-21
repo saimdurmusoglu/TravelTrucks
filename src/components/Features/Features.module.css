@@ -10,12 +10,13 @@
   box-sizing: border-box;
 }
 
+/* Equipment badge container with responsive layout constraints */
 .badgeList {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  width: 100%; /* Sabit 527px kaldırıldı, kapsayıcıya uyum sağlandı */
-  max-width: 527px; /* Masaüstünde çok yayılmasın diye limitlendi */
+  width: 100%;
+  max-width: 527px; /* Limits width on desktop to maintain design integrity */
   align-items: flex-start;
 }
 
@@ -27,9 +28,10 @@
 
 .featureBadge {
   background-color: var(--color-badges);
-  max-width: none !important; /* global.css'teki kısıtlamayı eziyoruz */
+  max-width: none !important; /* Overrides global restrictions for flexible badges */
 }
 
+/* Section title with separation border */
 .tableTitle {
   color: var(--color-main);
   border-bottom: 1px solid var(--color-gray-light);
@@ -43,30 +45,33 @@
   gap: 14px;
 }
 
+/* Individual technical spec rows with space-between alignment */
 .tableRow {
   display: flex;
   justify-content: space-between;
   color: var(--color-main);
 }
 
-/* --- Responsive Düzenlemeler --- */
+/* --- RESPONSIVE ADAPTATIONS --- */
 
+/* Tablets and medium screens */
 @media (max-width: 768px) {
   .featuresWrapper {
-    padding: 24px 20px; /* Mobilde iç boşlukları azalttık */
-    gap: 40px; /* İki bölüm arası mesafeyi daralttık */
+    padding: 24px 20px;
+    gap: 40px;
   }
 }
 
+/* Small mobile devices */
 @media (max-width: 480px) {
   .badgeList {
-    flex-direction: column; /* Badge'leri alt alta diz */
+    flex-direction: column; /* Stack badges vertically for better mobile readability */
     align-items: stretch;
     max-width: 100%;
   }
 
   .featureBadge {
-    width: 100% !important; /* Her badge tam genişlik */
+    width: 100% !important; /* Full width badges on small screens */
     justify-content: flex-start;
   }
 }

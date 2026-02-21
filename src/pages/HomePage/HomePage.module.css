@@ -1,10 +1,13 @@
+/* src/pages/HomePage/HomePage.module.css */
+
 .wrapper {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: var(--color-white);
-  min-height: calc(100vh - 72px); /* Header yüksekliğine göre güncellendi */
+  /* Ensures the hero section fills the remaining screen height */
+  min-height: calc(100vh - 72px); 
 }
 
 .hero {
@@ -14,8 +17,9 @@
   overflow: hidden;
   width: 100%;
   flex: 1;
-  min-height: calc(100vh - 72px); /* Mobilde tam ekran hissi için */
+  min-height: calc(100vh - 72px); 
   
+  /* Layered background with overlay for text readability */
   background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
                     url("../../assets/images/hero-image@1x.jpg");
   background-size: cover;
@@ -23,6 +27,7 @@
   background-repeat: no-repeat;
 }
 
+/* High-resolution (Retina) support for crisp background imagery */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .hero {
     background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
@@ -62,27 +67,30 @@
   color: var(--color-white);
 }
 
-/* --- RESPONSIVE GÜNCELLEMELER --- */
+/* --- RESPONSIVE ADAPTATIONS --- */
 
+/* Tablets and medium screens */
 @media (max-width: 1024px) {
   .container {
-    padding: 0 32px; /* Tablet için yan boşluklar azaltıldı */
+    padding: 0 32px;
   }
 }
 
+/* Mobile smartphones (Below 768px) */
 @media (max-width: 768px) {
   .hero {
-    background-position: 75% center; /* Mobilde karavanın görünmesi için odak noktası kaydırıldı */
+    /* Shifts focus to maintain the visual balance of the camper on smaller screens */
+    background-position: 75% center; 
   }
 
   .container {
-    padding: 0 20px; /* Mobil yan boşluklar */
-    justify-content: center; /* İçeriği mobil cihazda ortala */
+    padding: 0 20px;
+    justify-content: center; /* Center content on mobile for better focus */
   }
 
   .content {
-    align-items: center; /* Buton ve metni ortala */
-    text-align: center; /* Metinleri merkezle */
+    align-items: center;
+    text-align: center;
     gap: 32px;
   }
 
@@ -90,18 +98,18 @@
     max-width: 100%;
   }
 
-  /* Global H1 sınıfını ezmeden tablet boyuta çekelim */
+  /* Responsive typography scaling */
   .title {
     font-size: 32px; 
     line-height: 1.2;
   }
 
-  /* Global H2 sınıfını ezmeden tablet boyuta çekelim */
   .subtitle {
     font-size: 20px;
   }
 }
 
+/* Extra small devices */
 @media (max-width: 495px) {
   .titleContainer {
     gap: 6px;
@@ -117,9 +125,9 @@
   }
 
   .content button {
-    padding: 10px 30px; /* Üst-alt ve yan boşlukları azalttık */
-    font-size: 14px;    /* Yazı boyutunu mobille uyumlu hale getirdik */
-    min-width: 120px;   /* Butonun çok daralmaması için bir alt sınır koyduk */
-    height: auto;       /* Sabit yükseklik varsa esnetiyoruz */
+    padding: 10px 30px;
+    font-size: 14px;
+    min-width: 120px;
+    height: auto;
   }
 }

@@ -1,3 +1,5 @@
+/* src/components/Header/Header.module.css */
+
 .header {
   width: 100%;
   background-color: var(--color-inputs); 
@@ -5,7 +7,7 @@
   justify-content: center;
   position: sticky;
   top: 0;
-  z-index: 1000; /* Menünün her şeyin üstünde olması için artırıldı */
+  z-index: 1000; /* High z-index to ensure menu stays above all content */
   border-bottom: 1px solid var(--color-badges);
 }
 
@@ -27,6 +29,7 @@
   fill: var(--color-main);
 }
 
+/* Desktop Navigation: Centered absolutely within the header container */
 .nav {
   display: flex;
   align-items: center;
@@ -46,6 +49,7 @@
   color: var(--color-button);
 }
 
+/* Mobile Menu Button: Hidden by default on desktop */
 .menuBtn {
   display: none !important; 
   background: none;
@@ -62,20 +66,19 @@
   transition: fill 0.3s ease;
 }
 
-.menuBtn:hover .menuIcon,
-.menuBtn:hover .menuIcon use {
+.menuBtn:hover .menuIcon {
   fill: var(--color-button-hover);
-  color: var(--color-button-hover); /* currentColor için yedek */
 }
 
 .spacer {
   width: 136px;
 }
 
-/* TABLET VE MOBİL TASARIMI (768px Altı) */
+/* --- RESPONSIVE NAVIGATION (Below 768px) --- */
+
 @media (max-width: 768px) {
   .container {
-    padding: 0 20px; /* Kenar boşlukları daraltıldı */
+    padding: 0 20px;
   }
 
   .spacer {
@@ -83,17 +86,14 @@
   }
 
   .menuBtn {
-    display: flex !important; /* Mobilde görünür yap */
+    display: flex !important; /* Visible on tablet and mobile */
     align-items: center;
     justify-content: center;
   }
 
-  .menuBtn:hover .menuIcon {
-    fill: var(--color-button-hover) !important;
-  }
-
+  /* Full-screen overlay navigation for mobile */
   .nav {
-    display: none; /* Varsayılan olarak navigasyonu gizle */
+    display: none; 
     flex-direction: column;
     position: fixed;
     top: 72px;
@@ -106,12 +106,12 @@
     transition: all 0.3s ease;
   }
 
-  /* Menü açıldığında aktif olacak sınıf */
+  /* Applied when mobile menu state is active */
   .navOpen {
     display: flex;
   }
 
   .navLink {
-    font-size: 24px; /* Mobilde daha büyük dokunma alanı */
+    font-size: 24px; /* Larger hit area for touch devices */
   }
 }

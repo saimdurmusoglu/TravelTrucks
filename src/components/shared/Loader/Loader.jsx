@@ -1,10 +1,16 @@
-import styles from './Loader.module.css'; // Loader'a özel spinner ve yerleşim stilleri
+import styles from './Loader.module.css';
 
+/**
+ * Loader component used for asynchronous data fetching states.
+ * Features a CSS-based spinner and aligned typography with the design system.
+ */
 const Loader = () => {
   return (
-    <div className={styles.container}> {/* Sayfada ortalanmış ana kapsayıcı */}
-      <div className={styles.spinner}></div> {/* Dönen görsel halka */}
-      {/* Global 'Body2' sınıfını kullanarak tasarım sistemiyle uyumlu metin oluşturuyoruz */}
+    <div className={styles.container}>
+      {/* Visual spinner ring created with CSS animation */}
+      <div className={styles.spinner}></div>
+      
+      {/* Utilizing the global 'Body2' class for typography consistency */}
       <p className={`${styles.text} Body2`}>Fetching amazing campers...</p>
     </div>
   );

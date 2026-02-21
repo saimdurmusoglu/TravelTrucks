@@ -3,6 +3,10 @@ import { NavLink, Link } from 'react-router-dom';
 import sprite from '../../assets/icons-sprite.svg';
 import styles from './Header.module.css';
 
+/**
+ * Header component featuring a responsive navigation menu.
+ * Includes a mobile hamburger menu and active link styling for SPA routing.
+ */
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -13,7 +17,7 @@ const Header = () => {
     <header className={styles.header}>
       <div className={styles.container}>
         
-        {/* LOGO */}
+        {/* LOGO: Primary brand link back to home */}
         <div className={styles.logoSection}>
           <Link to="/" className={styles.logoLink} onClick={closeMenu}>
             <svg className={styles.logoSvg}>
@@ -22,7 +26,7 @@ const Header = () => {
           </Link>
         </div>
 
-        {/* MOBİL MENÜ BUTONU */}
+        {/* MOBILE MENU TOGGLE: Controlled by local state */}
         <button 
           className={styles.menuBtn} 
           onClick={toggleMenu}
@@ -33,7 +37,7 @@ const Header = () => {
           </svg>
         </button>
 
-        {/* NAVİGASYON */}
+        {/* NAVIGATION: Responsive list with active route highlighting */}
         <nav className={`${styles.nav} ${isMenuOpen ? styles.navOpen : ''}`}>
           <NavLink 
             to="/" 
@@ -57,7 +61,7 @@ const Header = () => {
           </NavLink>
         </nav>
 
-        {/* MASAÜSTÜ İÇİN DENGELEYİCİ */}
+        {/* SPACER: Balancing the layout for desktop view */}
         <div className={styles.spacer}></div>
       </div>
     </header>

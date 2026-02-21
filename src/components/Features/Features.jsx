@@ -1,8 +1,12 @@
 import Icon from '../shared/Icon'; 
 import styles from './Features.module.css'; 
 
+/**
+ * Features component displays camper specific equipment and technical dimensions.
+ * Requirement: Only features available in the API response should be rendered.
+ */
 const Features = ({ camper }) => {
-  // Teknik Şartnamede istenen özelliklerin (features) haritası
+  // Mapping of potential camper features based on technical specifications
   const featureMap = [
     { 
       key: "transmission", 
@@ -27,12 +31,12 @@ const Features = ({ camper }) => {
 
   return (
     <div className={styles.featuresWrapper}>
-      {/* 1. Üst Kısım: Araç Özellikleri (Badges) */}
+      {/* Part 1: Vehicle Equipment Badges */}
       <div className={styles.badgeList}>
         {featureMap.map((feature) => {
           const value = camper[feature.key];
           
-          // Şartname: Sadece mevcut olan özellikler gösterilmelidir.
+          // Technical Spec: Render only if the feature exists and is not "false"
           if (!value || value === "false") return null;
 
           const displayLabel = typeof feature.label === "function" 
@@ -48,7 +52,7 @@ const Features = ({ camper }) => {
         })}
       </div>
 
-      {/* 2. Alt Kısım: Teknik Detaylar (Vehicle Details) */}
+      {/* Part 2: Technical Specifications Table */}
       <div className={styles.vehicleDetails}>
         <h3 className={styles.tableTitle}>Vehicle details</h3>
         <div className={styles.detailTable}>

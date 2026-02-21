@@ -1,4 +1,4 @@
-/* DetailsPage.module.css */
+/* src/pages/DetailsPage/DetailsPage.module.css */
 
 .container {
   width: 100%;
@@ -29,10 +29,9 @@
   color: var(--color-main);
 }
 
-/* --- GALERİ (Varsayılan: Yan yana 4 resim) --- */
+/* --- GALLERY SYSTEM (Default: 4-column grid for desktop) --- */
 .gallery {
   display: grid;
-  /* 768px'e kadar yan yana 4 resim düzenini koruyoruz */
   grid-template-columns: repeat(4, 1fr); 
   gap: 16px;
   margin-bottom: 28px;
@@ -54,7 +53,7 @@
   object-fit: cover;
 }
 
-/* 3. resim için özel scale ayarın */
+/* Specific scale adjustment for the third image to match design aesthetics */
 .gallery > .imageWrapper:nth-child(3) .galleryImage {
   transform: scale(1.5);
 }
@@ -67,6 +66,7 @@
   line-height: 1.5;
 }
 
+/* --- TAB NAVIGATION SYSTEM --- */
 .tabs {
   display: flex;
   gap: 40px;
@@ -84,6 +84,7 @@
   color: var(--color-main);
 }
 
+/* Animated bottom border for the active tab state */
 .activeTab::after {
   content: "";
   position: absolute;
@@ -94,6 +95,7 @@
   background-color: var(--color-button);
 }
 
+/* Lower section layout: Features/Reviews alongside the BookingForm */
 .contentBottom {
   display: flex;
   gap: 40px;
@@ -106,45 +108,41 @@
   min-width: 0;
 }
 
-/* --- RESPONSIVE GÜNCELLEMELER --- */
+/* --- RESPONSIVE ADAPTATIONS --- */
 
-/* 1. ARA BOYUTLAR (1440px altı - 768px arası) */
+/* Small laptops and intermediate displays */
 @media (max-width: 1439px) {
   .container {
     padding: 40px 32px;
   }
   
   .imageWrapper {
-    /* Genişlik azaldığı için yüksekliği de biraz azaltarak oranı koruyoruz */
     height: 240px; 
   }
 }
 
-/* 2. MOBİL VE TABLET GEÇİŞ (768px ve Altı) */
+/* Tablets and medium screens */
 @media (max-width: 768px) {
   .container {
     padding: 32px 24px;
     align-items: flex-start;
   }
 
-  .infoRow, .tabs {
-    justify-content: flex-start;
-  }
-
+  /* Transition to a 2x2 grid for the gallery */
   .gallery {
-    /* İşte burada 2 satır 2 sütun düzenine geçiyoruz */
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
 
   .gallery > .imageWrapper:nth-child(3) .galleryImage {
     transform: scale(2.0);
-}
+  }
 
   .imageWrapper {
     height: 200px;
   }
 
+  /* Stack content bottom (tabs content and form) vertically */
   .contentBottom {
     flex-direction: column;
     align-items: flex-start;
@@ -158,14 +156,14 @@
   }
 }
 
-/* 3. KÜÇÜK MOBİL (480px ve Altı) */
+/* Small mobile devices */
 @media (max-width: 480px) {
   .container {
     padding: 24px 16px;
   }
 
+  /* Full-width single column gallery for mobile readability */
   .gallery {
-    /* İstersen 2'li bırakabilirsin, ama çok dar ekranlarda tekli sütun en iyisidir */
     grid-template-columns: 1fr; 
   }
 
