@@ -266,3 +266,31 @@ input, textarea, button {
 .category-badge:hover {
   border-color: var(--color-button);
 }
+
+/* --- Media Queries --- */
+
+/* 1024px ve 1439px Arası Özel Düzenleme */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  
+  /* Features ve Booking kapsayıcı sınıfların hangisiyse onları buraya ekle. 
+     Örnek olarak genel kullanılan isimleri ekliyorum: */
+  .features-section, 
+  .booking-section,
+  .container { 
+    width: 100%;
+    max-width: 960px; /* Ya da tasarımına göre 1000px */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 40px;  /* Sol padding */
+    padding-right: 40px; /* Sağ padding - Sarkmayı bu ve border-box önler */
+    display: block;      /* Yan yanaysalar alt alta gelmelerini sağlar */
+    float: none;         /* Eğer eski bir float yapısı kaldıysa iptal eder */
+  }
+
+  /* Sayfanın sağa doğru taşmasını (sarkmasını) engellemek için */
+  body, html {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+  }
+}

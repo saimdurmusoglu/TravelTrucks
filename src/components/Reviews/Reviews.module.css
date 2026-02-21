@@ -1,16 +1,17 @@
 /* src/components/Reviews/Reviews.module.css */
 
-/* Yorumlar arası geniş dikey boşluk (Figma standartı) */
 .reviewsList {
   display: flex;
   flex-direction: column;
-  gap: 44px;
+  gap: 44px; /* Yorumlar arasındaki dikey mesafe */
+  width: 100%;
+  padding: 12px 0px;
 }
 
 .reviewItem {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 16px; /* İsim bloğu ile yorum metni arası mesafe */
 }
 
 .reviewerInfo {
@@ -19,7 +20,7 @@
   align-items: center;
 }
 
-/* Yuvarlak profil görseli simülasyonu */
+/* Profil harf ikonu */
 .avatar {
   width: 60px;
   height: 60px;
@@ -29,7 +30,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Font boyutu H2 sınıfından miras alınır */
+  flex-shrink: 0;
 }
 
 .nameGroup {
@@ -39,17 +40,64 @@
 }
 
 .reviewerName {
-  /* Font özellikleri H3 sınıfından gelir */
   color: var(--color-main);
+  font-weight: 600; /* Body2'ye ek olarak belirginlik */
 }
 
-/* Yıldızların yan yana dizildiği satır */
 .starsRow {
   display: flex;
   gap: 4px;
 }
 
 .comment {
-  /* Renk ve satır yüksekliği haricindeki özellikler Body sınıfından gelir */
   color: var(--color-text);
+  line-height: 1.5;
+}
+
+/* --- RESPONSIVE GÜNCELLEMELER --- */
+
+@media (max-width: 768px) {
+  .reviewsList {
+    gap: 32px; /* Mobilde yorumlar arası mesafeyi biraz daralttık */
+  }
+
+  .avatar {
+    width: 50px; /* Avatarı biraz ufalttık */
+    height: 50px;
+    font-size: 18px; /* İçindeki harfi ufalttık */
+  }
+
+  .reviewerName {
+    font-size: 16px;
+  }
+
+  .comment {
+    font-size: 14px; /* Body (16px) metnini 14px'e çektik */
+    line-height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .reviewsList {
+    gap: 24px;
+  }
+
+  .avatar {
+    width: 44px; /* En küçük ekranlar için ideal profil boyutu */
+    height: 44px;
+    font-size: 16px;
+  }
+
+  .reviewerName {
+    font-size: 15px;
+  }
+
+  .comment {
+    font-size: 13px; /* Daha okunaklı ama kompakt bir boyut */
+    line-height: 18px;
+  }
+
+  .reviewItem {
+    gap: 12px;
+  }
 }

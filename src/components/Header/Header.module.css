@@ -1,14 +1,11 @@
-/* src/components/Header/Header.module.css */
-
 .header {
   width: 100%;
-  /* Tasarımdaki gri arka plan (F7F7F7) */
   background-color: var(--color-inputs); 
   display: flex;
   justify-content: center;
-  position: sticky; /* Sayfa kaydırıldığında yukarıda asılı kalır */
+  position: sticky;
   top: 0;
-  z-index: 100; /* Diğer içeriklerin üstünde durması için */
+  z-index: 1000; /* Menünün her şeyin üstünde olması için artırıldı */
   border-bottom: 1px solid var(--color-badges);
 }
 
@@ -17,23 +14,16 @@
   max-width: var(--container-max-width);
   margin: 0 auto;
   min-height: 72px;
-  padding: 0 64px; /* Figma yan boşlukları */
+  padding: 0 64px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
 }
 
-.logoSection {
-  flex: none; /* Logo genişliğinin daralmasını engeller */
-  display: flex;
-  align-items: center;
-}
-
 .logoSvg {
   width: 136px;
   height: 16px;
-  /* Logo rengi ana metin renginden gelir */
   fill: var(--color-main);
 }
 
@@ -41,36 +31,87 @@
   display: flex;
   align-items: center;
   gap: 32px;
-  /* Orta hizalama hilesi */
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .navLink {
-  /* Font özellikleri global Body2 sınıfından miras alınır */
   color: var(--color-main);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
-/* Aktif link ve hover durumu tasarımı */
-.active {
-  color: var(--color-button); /* Kırmızı vurgu rengi */
-}
-
-.navLink:hover {
+.active, .navLink:hover {
   color: var(--color-button);
 }
 
-/* Sağ boşluk: Logonun 136px genişliğini simüle eder */
+.menuBtn {
+  display: none !important; 
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  line-height: 0;
+}
+
+.menuIcon {
+  width: 32px;
+  height: 32px;
+  fill: var(--color-main);
+  transition: fill 0.3s ease;
+}
+
+.menuBtn:hover .menuIcon,
+.menuBtn:hover .menuIcon use {
+  fill: var(--color-button-hover);
+  color: var(--color-button-hover); /* currentColor için yedek */
+}
+
 .spacer {
   width: 136px;
 }
 
-/* Mobil görünüm için dengeleyiciyi gizle */
+/* TABLET VE MOBİL TASARIMI (768px Altı) */
 @media (max-width: 768px) {
+  .container {
+    padding: 0 20px; /* Kenar boşlukları daraltıldı */
+  }
+
   .spacer {
     display: none;
+  }
+
+  .menuBtn {
+    display: flex !important; /* Mobilde görünür yap */
+    align-items: center;
+    justify-content: center;
+  }
+
+  .menuBtn:hover .menuIcon {
+    fill: var(--color-button-hover) !important;
+  }
+
+  .nav {
+    display: none; /* Varsayılan olarak navigasyonu gizle */
+    flex-direction: column;
+    position: fixed;
+    top: 72px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 72px);
+    background-color: var(--color-inputs);
+    padding: 40px 0;
+    transform: none;
+    transition: all 0.3s ease;
+  }
+
+  /* Menü açıldığında aktif olacak sınıf */
+  .navOpen {
+    display: flex;
+  }
+
+  .navLink {
+    font-size: 24px; /* Mobilde daha büyük dokunma alanı */
   }
 }

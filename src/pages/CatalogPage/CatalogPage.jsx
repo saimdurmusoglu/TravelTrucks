@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom"; // Aynı sayfada açılması için eklendi
-import { fetchCampers } from "../../services/api";
+import { useNavigate } from "react-router-dom";
+import { getCampers, resetItems, incrementPage } from "../../redux/campersSlice";
 import { toggleFavorite } from "../../redux/favoritesSlice";
 import Icon from "../../components/shared/Icon";
 import Loader from "../../components/shared/Loader/Loader";
@@ -9,29 +9,26 @@ import styles from "./CatalogPage.module.css";
 
 const CatalogPage = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // Yönlendirme için tanımlandı
+  const navigate = useNavigate();
   
+  const { items, isLoading, page, hasMore } = useSelector((state) => state.campers);
   const favorites = useSelector((state) => state.favorites.items || []);
-
-  const [allCampers, setAllCampers] = useState([]);
-  const [filteredCampers, setFilteredCampers] = useState([]);
-  const [visibleCount, setVisibleCount] = useState(4);
-  const [loading, setLoading] = useState(false);
 
   const [location, setLocation] = useState("");
   const [activeEquipment, setActiveEquipment] = useState([]);
   const [activeType, setActiveType] = useState("");
 
+  // GÜNCELLENMİŞ featureMap: Şanzıman ve Motor tipi için esnek yapı
   const featureMap = [
-    {
-      key: "transmission",
-      icon: "diagram",
-      label: (val) => (val === "automatic" ? "Automatic" : null),
+    { 
+      key: "transmission", 
+      icon: "diagram", 
+      label: (val) => val ? val.charAt(0).toUpperCase() + val.slice(1) : null 
     },
-    {
-      key: "engine",
-      icon: "fuel-pump",
-      label: (val) => (val ? val.charAt(0).toUpperCase() + val.slice(1) : null),
+    { 
+      key: "engine", 
+      icon: "fuel-pump", 
+      label: (val) => val ? val.charAt(0).toUpperCase() + val.slice(1) : null 
     },
     { key: "AC", icon: "wind", label: () => "AC" },
     { key: "kitchen", icon: "cup-hot", label: () => "Kitchen" },
@@ -40,53 +37,38 @@ const CatalogPage = () => {
     { key: "bathroom", icon: "ph_shower", label: () => "Bathroom" },
   ];
 
+  const fetchPageData = useCallback(() => {
+    const params = {
+      page,
+      limit: 4,
+      location: location || undefined,
+      form: activeType || undefined,
+    };
+
+    activeEquipment.forEach((feat) => {
+      params[feat] = true;
+    });
+
+    dispatch(getCampers(params));
+  }, [dispatch, page, location, activeType, activeEquipment]);
+
+  useEffect(() => {
+    fetchPageData();
+  }, [fetchPageData]); 
+
   const toggleEquipment = (id) => {
     setActiveEquipment((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
   };
 
-  useEffect(() => {
-    const getCampers = async () => {
-      setLoading(true);
-      try {
-        const { data } = await fetchCampers();
-        const items = data.items || [];
-        setAllCampers(items);
-        setFilteredCampers(items);
-      } catch (error) {
-        console.error("Error fetching campers:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    getCampers();
-  }, []);
-
   const handleSearch = () => {
-    let results = [...allCampers];
-    if (location) {
-      results = results.filter((camper) =>
-        camper.location.toLowerCase().includes(location.toLowerCase())
-      );
-    }
-    if (activeType) {
-      results = results.filter((camper) => camper.form === activeType);
-    }
-    if (activeEquipment.length > 0) {
-      results = results.filter((camper) => {
-        return activeEquipment.every((equipment) => {
-          if (equipment === "transmission")
-            return camper.transmission === "automatic";
-          return camper[equipment] === true;
-        });
-      });
-    }
-    setFilteredCampers(results);
-    setVisibleCount(4);
+    dispatch(resetItems());
   };
 
-  const handleLoadMore = () => setVisibleCount((prev) => prev + 4);
+  const handleLoadMore = () => {
+    dispatch(incrementPage());
+  };
 
   return (
     <div className={styles.container}>
@@ -94,11 +76,10 @@ const CatalogPage = () => {
         <div className={styles.filterGroup}>
           <label className={styles.filterLabel}>Location</label>
           <div className="input-wrapper">
-            {/* Hiza için Map ikonu -small yapıldı */}
             <Icon id="Map-small" width="20" height="20" className="input-icon-left" />
             <input
               type="text"
-              placeholder="Kyiv, Ukraine"
+              placeholder="City, Country"
               className="input-main2 input-with-icon"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
@@ -158,22 +139,16 @@ const CatalogPage = () => {
       </aside>
 
       <main className={styles.mainContent}>
-        {loading ? (
-          <Loader />
-        ) : filteredCampers.length === 0 ? (
+        {items.length === 0 && !isLoading ? (
           <div className={styles.noResults}>
             <p className="H2 text-center opacity-60">No campers found.</p>
           </div>
         ) : (
           <>
-            {filteredCampers.slice(0, visibleCount).map((camper) => (
+            {items.map((camper) => (
               <div key={camper.id} className={styles.card}>
                 <div className={styles.imageWrapper}>
-                  <img
-                    src={camper.gallery?.[0]?.thumb}
-                    alt={camper.name}
-                    className={styles.image}
-                  />
+                  <img src={camper.gallery?.[0]?.thumb} alt={camper.name} className={styles.image} />
                 </div>
 
                 <div className={styles.details}>
@@ -182,16 +157,14 @@ const CatalogPage = () => {
                       <div className={styles.namePriceRow}>
                         <h2 className={`H2 ${styles.camperName}`}>{camper.name}</h2>
                         <div className={styles.priceWrapper}>
-                          <h2 className="H2">€{camper.price?.toFixed(2)}</h2>
+                          <h2 className="H2">€{Number(camper.price).toFixed(2)}</h2>
                           <button 
                             className={styles.favoriteBtn} 
                             onClick={() => dispatch(toggleFavorite(camper.id))}
                           >
                             <Icon
                               id={favorites?.includes(camper.id) ? "heart-pressed" : "heart"}
-                              width="24"
-                              height="24"
-                              className={styles.heartIcon}
+                              width="24" height="24" className={styles.heartIcon}
                             />
                           </button>
                         </div>
@@ -204,7 +177,6 @@ const CatalogPage = () => {
                         {camper.rating} ({camper.reviews?.length || 0} Reviews)
                       </span>
                       <span className={styles.infoItem}>
-                        {/* Kart içindeki Map ikonu -small yapıldı */}
                         <Icon id="Map-small" width="16" height="16" />
                         {camper.location}
                       </span>
@@ -214,44 +186,35 @@ const CatalogPage = () => {
                   <p className={`Body ${styles.description}`}>{camper.description}</p>
 
                   <div className={styles.badgeList}>
-                    {(() => {
-                      const priorityKeys = ["transmission", "engine", "kitchen", "AC"];
-                      const allAvailable = featureMap
-                        .map((f) => {
-                          const val = camper[f.key];
-                          if (!val || (typeof f.label === "function" && f.label(val) === null)) return null;
-                          return {
-                            ...f,
-                            displayLabel: typeof f.label === "function" ? f.label(val) : f.label,
-                          };
-                        })
-                        .filter(Boolean);
-
-                      const priorityItems = priorityKeys
-                        .map((key) => allAvailable.find((item) => item.key === key))
-                        .filter(Boolean);
-
-                      const otherItems = allAvailable.filter((item) => !priorityKeys.includes(item.key));
-
-                      return [...priorityItems, ...otherItems].slice(0, 4).map((item) => (
-                        <div key={item.key} className="category-badge">
-                          <Icon id={`${item.icon}-small`} width="20" height="20" />
-                          <span>{item.displayLabel}</span>
+                    {featureMap
+                      .filter(f => {
+                        const value = camper[f.key];
+                        // Sadece API'de 'true' olan veya değeri olanları süz
+                        if (!value) return false;
+                        // Eğer bir label fonksiyonu varsa ve null dönüyorsa gösterme
+                        if (typeof f.label === 'function' && f.label(value) === null) return false;
+                        return true;
+                      })
+                      .map(f => (
+                        <div key={f.key} className="category-badge">
+                          <Icon id={`${f.icon}-small`} width="20" height="20" />
+                          <span>
+                            {typeof f.label === 'function' ? f.label(camper[f.key]) : f.label}
+                          </span>
                         </div>
-                      ));
-                    })()}
+                      ))}
                   </div>
 
-                  <button
-                    className="btn-primary mt-auto"
-                    onClick={() => navigate(`/catalog/${camper.id}`)}
-                  >
+                  <button className="btn-primary mt-auto" onClick={() => navigate(`/catalog/${camper.id}`)}>
                     Show more
                   </button>
                 </div>
               </div>
             ))}
-            {filteredCampers.length > visibleCount && (
+            
+            {isLoading && <Loader />}
+
+            {hasMore && !isLoading && items.length > 0 && (
               <div className={styles.loadMoreWrapper}>
                 <button onClick={handleLoadMore} className="btn-secondary">Load more</button>
               </div>

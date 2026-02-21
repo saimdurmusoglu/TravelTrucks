@@ -1,42 +1,68 @@
 // src/components/BookingForm/BookingForm.jsx
-import Calendar from '../Calendar/Calendar'; // Özel takvim bileşeni
-import styles from './BookingForm.module.css'; // Form yerleşim stilleri
+import { toast } from 'react-toastify'; // Toast kütüphanesini içe aktar
+import Calendar from '../Calendar/Calendar'; 
+import styles from './BookingForm.module.css';
 
 const BookingForm = () => {
-  // Form gönderildiğinde sayfanın yenilenmesini engeller
+  /**
+   * Teknik Şartname: Rezervasyon başarıyla tamamlandığında bir bildirim gösterilmelidir.
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Buraya form verilerini API'ye gönderme mantığı eklenebilir
-    console.log("Form submitted!");
+
+    // Form verilerini toplama
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    // ŞARTNAME KRİTİK MADDE: Profesyonel Bildirim Gösterimi
+    toast.success("Reservation successful! We will contact you soon.", {
+      position: "top-right",
+      autoClose: 3000,
+      theme: "colored",
+    });
+
+    // Formu temizle
+    e.target.reset();
+    
+    // Konsol çıktısı (Mülakat kontrolü için)
+    console.log("Booking Data Sent:", data);
   };
 
   return (
-    <div className={styles.formCard}> {/* Formun dış çerçevesi */}
+    <div className={styles.formCard}>
       <div className={styles.titleGroup}>
-        {/* Global H3 sınıfı ile başlık */}
         <h3 className="H3">Book your campervan now</h3>
-        {/* Global Body sınıfı ile alt metin */}
         <p className={`Body ${styles.subtitle}`}>
           Stay connected! We are always ready to help you.
         </p>
       </div>
       
       <form className={styles.form} onSubmit={handleSubmit}>
-        {/* Global 'input-main' sınıfı ile tasarım sistemine uygun giriş alanları */}
-        <input type="text" placeholder="Name*" className="input-main" required />
-        <input type="email" placeholder="Email*" className="input-main" required />
+        <input 
+          name="userName"
+          type="text" 
+          placeholder="Name*" 
+          className="input-main" 
+          required 
+        />
+        <input 
+          name="userEmail"
+          type="email" 
+          placeholder="Email*" 
+          className="input-main" 
+          required 
+        />
         
-        {/* Takvim seçim alanı */}
+        {/* Özel takvim bileşeni */}
         <Calendar />
         
-        {/* Yorum alanı için textarea, input-main ile aynı tasarımı paylaşır */}
         <textarea 
+          name="userComment"
           placeholder="Comment" 
-          className={styles.textarea} 
+          className={`input-main ${styles.textarea}`} 
           rows="4"
         ></textarea>
         
-        {/* Global 'btn-primary' sınıfı ile gönder butonu */}
         <button type="submit" className={`btn-primary ${styles.submitBtn}`}>
           Send
         </button>

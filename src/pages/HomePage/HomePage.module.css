@@ -1,37 +1,31 @@
-/* src/pages/HomePage/HomePage.module.css */
-
 .wrapper {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: var(--color-white);
-  /* Header yüksekliği (73px) çıkarılarak tam ekran görünümü sağlanır */
-  min-height: calc(100vh - 73px);
+  min-height: calc(100vh - 72px); /* Header yüksekliğine göre güncellendi */
 }
 
 .hero {
   position: relative;
   display: flex;
-  align-items: center; /* İçeriği dikeyde ortalar */
+  align-items: center;
   overflow: hidden;
   width: 100%;
-  flex: 1; /* Kalan tüm dikey alanı kaplar */
-  /* Tasarımdaki minimum yükseklik dengesi */
-  min-height: calc(768px - 72px);
+  flex: 1;
+  min-height: calc(100vh - 72px); /* Mobilde tam ekran hissi için */
   
-  /* Background Settings */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), 
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
                     url("../../assets/images/hero-image@1x.jpg");
   background-size: cover;
-  background-position: center; /* Daha dengeli bir görünüm için top center yerine center */
+  background-position: center;
   background-repeat: no-repeat;
 }
 
-/* Retina Support (2x Görsel) */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .hero {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), 
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
                       url("../../assets/images/hero-image@2x.jpg");
   }
 }
@@ -56,19 +50,76 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-width: 600px; /* Sabit min-width yerine esnek max-width */
+  max-width: 600px;
 }
 
 .title {
-  /* Renk harici tüm özellikler global H1'den gelir */
   color: var(--color-white); 
   margin: 0;
 }
 
 .subtitle {
-  /* Renk harici tüm özellikler global H2'den gelir */
   color: var(--color-white);
 }
 
-/* heroBtn sınıfına gerek kalmadı çünkü btn-primary padding değerleri 
-   tasarımdaki 173px genişliği otomatik olarak yakalıyor. */
+/* --- RESPONSIVE GÜNCELLEMELER --- */
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 32px; /* Tablet için yan boşluklar azaltıldı */
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    background-position: 75% center; /* Mobilde karavanın görünmesi için odak noktası kaydırıldı */
+  }
+
+  .container {
+    padding: 0 20px; /* Mobil yan boşluklar */
+    justify-content: center; /* İçeriği mobil cihazda ortala */
+  }
+
+  .content {
+    align-items: center; /* Buton ve metni ortala */
+    text-align: center; /* Metinleri merkezle */
+    gap: 32px;
+  }
+
+  .titleContainer {
+    max-width: 100%;
+  }
+
+  /* Global H1 sınıfını ezmeden tablet boyuta çekelim */
+  .title {
+    font-size: 32px; 
+    line-height: 1.2;
+  }
+
+  /* Global H2 sınıfını ezmeden tablet boyuta çekelim */
+  .subtitle {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 495px) {
+  .titleContainer {
+    gap: 6px;
+  }
+
+  .title {
+    font-size: 18px;
+    line-height: 1.1;
+  }
+
+  .subtitle {
+    font-size: 10px;
+  }
+
+  .content button {
+    padding: 10px 30px; /* Üst-alt ve yan boşlukları azalttık */
+    font-size: 14px;    /* Yazı boyutunu mobille uyumlu hale getirdik */
+    min-width: 120px;   /* Butonun çok daralmaması için bir alt sınır koyduk */
+    height: auto;       /* Sabit yükseklik varsa esnetiyoruz */
+  }
+}

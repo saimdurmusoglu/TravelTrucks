@@ -12,17 +12,14 @@ const Calendar = () => {
       <DatePicker
         selected={startDate}
         onChange={(date) => setStartDate(date)}
-        placeholderText="Booking date"
+        placeholderText="Booking date*"
+        required
         className="input-main" // Global CSS'deki input tasarımını kullanır
-        dateFormat="dd/MM/yyyy"
+        dateFormat="dd.MM.yyyy"
         calendarClassName={styles.customCalendar} // Takvim paneline özel sınıf
         nextMonthButtonLabel=">"
         previousMonthButtonLabel="<"
       />
-      {/* Input içindeki takvim ikonu */}
-      <div className={styles.iconWrapper}>
-        <Icon id="calendar" width="20" height="20" />
-      </div>
     </div>
   );
 };

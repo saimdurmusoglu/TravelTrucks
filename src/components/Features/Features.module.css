@@ -3,13 +3,20 @@
 .featuresWrapper {
   display: flex;
   flex-direction: column;
-  gap: 44px; /* Rozetler ve Tablo arasındaki geniş boşluk */
+  gap: 100px;
+  padding: 44px 52px;
+  border-radius: 10px;
+  background-color: var(--color-inputs);
+  box-sizing: border-box;
 }
 
 .badgeList {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  width: 100%; /* Sabit 527px kaldırıldı, kapsayıcıya uyum sağlandı */
+  max-width: 527px; /* Masaüstünde çok yayılmasın diye limitlendi */
+  align-items: flex-start;
 }
 
 .vehicleDetails {
@@ -18,8 +25,12 @@
   gap: 24px;
 }
 
+.featureBadge {
+  background-color: var(--color-badges);
+  max-width: none !important; /* global.css'teki kısıtlamayı eziyoruz */
+}
+
 .tableTitle {
-  /* Font özellikleri global h3'ten miras alınır */
   color: var(--color-main);
   border-bottom: 1px solid var(--color-gray-light);
   padding-bottom: 24px;
@@ -29,22 +40,33 @@
 .detailTable {
   display: flex;
   flex-direction: column;
-  gap: 14px; /* Satırlar arası dikey boşluk */
+  gap: 14px;
 }
 
 .tableRow {
   display: flex;
   justify-content: space-between;
-  /* Font özellikleri global Body2 sınıfından gelir */
   color: var(--color-main);
 }
 
-.tableRow span:first-child {
-  /* Sol sütun etiketleri */
-  text-transform: capitalize;
+/* --- Responsive Düzenlemeler --- */
+
+@media (max-width: 768px) {
+  .featuresWrapper {
+    padding: 24px 20px; /* Mobilde iç boşlukları azalttık */
+    gap: 40px; /* İki bölüm arası mesafeyi daralttık */
+  }
 }
 
-.tableRow span:last-child {
-  /* Sağ sütun değerleri */
-  text-align: right;
+@media (max-width: 480px) {
+  .badgeList {
+    flex-direction: column; /* Badge'leri alt alta diz */
+    align-items: stretch;
+    max-width: 100%;
+  }
+
+  .featureBadge {
+    width: 100% !important; /* Her badge tam genişlik */
+    justify-content: flex-start;
+  }
 }

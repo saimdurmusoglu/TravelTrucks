@@ -8,6 +8,7 @@
   padding: 48px 64px;
   display: flex;
   gap: 64px;
+  box-sizing: border-box;
 }
 
 .sidebar {
@@ -22,6 +23,7 @@
   display: flex;
   flex-direction: column;
   gap: 32px;
+  min-width: 0;
 }
 
 /* --- SIDEBAR --- */
@@ -85,7 +87,8 @@
 
 /* --- CARD --- */
 .card {
-  width: 888px;
+  width: 100%;
+  max-width: 888px;
   min-height: 368px;
   border: 1px solid var(--color-gray-light);
   border-radius: 20px;
@@ -93,12 +96,14 @@
   display: flex;
   gap: 24px;
   background-color: var(--color-white);
+  box-sizing: border-box;
 }
 
 .imageWrapper {
   width: 292px;
   height: 320px;
-  flex-shrink: 0;
+  flex-shrink: 1;
+  min-width: 200px;
 }
 
 .image {
@@ -113,6 +118,7 @@
   flex-direction: column;
   gap: 24px;
   flex: 1;
+  min-width: 0;
 }
 
 .topContent {
@@ -125,28 +131,33 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
+  width: 100%;
 }
 
 .camperName {
   margin: 0;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 320px;
+  flex: 1;
+  font-size: 24px;
 }
 
 .priceWrapper {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-shrink: 0;
 }
 
-/* --- FAVORITE BUTTON --- */
 .favoriteBtn {
   background: none;
   border: none;
   padding: 0;
-  cursor: pointer; /* Kritik Kriter: İşaretçi parmağı */
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -158,7 +169,6 @@
 }
 
 .heartIcon {
-  /* Renk müdahalesi kaldırıldı çünkü heart-pressed.svg zaten kırmızı */
   display: block;
 }
 
@@ -183,17 +193,15 @@
   color: var(--color-gray);
 }
 
-/* --- BADGES --- */
 .badgeList {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   width: 100%;
   justify-content: flex-start;
-  padding-right: 133px;
+  padding-right: 20px;
 }
 
-/* --- LOAD MORE --- */
 .loadMoreWrapper {
   display: flex;
   justify-content: center;
@@ -203,4 +211,590 @@
 .noResults {
   text-align: center;
   padding: 100px 0;
+}
+
+/* --- ARA BOYUT (1025px - 1440px) --- */
+@media (max-width: 1439px) {
+  .container {
+    padding: 48px 32px;
+    gap: 32px;
+  }
+  
+  .sidebar {
+    min-width: 300px;
+  }
+
+  .imageWrapper {
+    width: 240px;
+    height: 280px;
+  }
+
+  .camperName {
+    font-size: 20px;
+  }
+
+  .priceWrapper h2 {
+    font-size: 20px;
+  }
+
+  .details {
+    gap: 16px;
+  }
+}
+
+/* --- TABLET GÖRÜNÜMÜ (Güncellendi: Ortalama eklendi) --- */
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+    padding: 32px 20px;
+    gap: 40px;
+    align-items: center; /* İçeriği ortala */
+  }
+
+  .sidebar {
+    min-width: 100%;
+    max-width: 600px; /* Çok yayılmaması için */
+    order: 1;
+    align-items: center; /* Elemanları ortala */
+    text-align: center;
+  }
+
+  .filterGroup, .filtersSection > div {
+    width: 100%;
+    align-items: center;
+  }
+
+  .mainContent {
+    order: 2;
+    width: 100%;
+    align-items: center;
+  }
+
+  .card {
+    width: 100%;
+    max-width: none;
+  }
+
+  .imageWrapper {
+    width: 292px;
+    height: 320px;
+  }
+
+  .camperName {
+    font-size: 22px;
+  }
+}
+
+/* --- MOBİL GÖRÜNÜM (Güncellendi: Ortalama eklendi) --- */
+@media (max-width: 768px) {
+  .filterGrid {
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    width: fit-content;
+    margin: 0 auto;
+  }
+
+  .card {
+    flex-direction: column;
+    height: auto;
+    padding: 16px;
+    gap: 16px;
+    align-items: center; /* Kart içeriğini ortala */
+  }
+
+  .imageWrapper {
+    width: 100%;
+    height: 200px;
+  }
+
+  .details {
+    align-items: center; /* Detay yazılarını ortala */
+    text-align: center;
+  }
+
+  .namePriceRow {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .camperName {
+    font-size: 18px;
+    -webkit-line-clamp: 2;
+  }
+
+  .priceWrapper h2 {
+    font-size: 18px;
+  }
+
+  .infoRow {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .description {
+    font-size: 14px;
+    -webkit-line-clamp: 2;
+  }
+
+  .badgeList {
+    padding-right: 0;
+    gap: 6px;
+    justify-content: center; /* Rozetleri ortala */
+  }
+
+  .badgeList div {
+    padding: 8px 12px !important;
+    gap: 4px !important;
+  }
+
+  .badgeList div span {
+    font-size: 12px !important;
+    white-space: normal !important;
+  }
+
+  .sidebar button.btn-primary {
+    width: 100%;
+    max-width: 300px; /* Buton çok devleşmesin */
+  }
+
+  .details button.btn-primary {
+    width: fit-content;
+    align-self: center; /* Butonu ortala */
+    padding: 12px 32px;
+  }
+}
+
+/* --- ÇOK KÜÇÜK EKRANLAR --- */
+@media (max-width: 480px) {
+  .filterGrid {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+  
+  .namePriceRow {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .badgeList div {
+    flex: 1 1 calc(50% - 6px);
+    justify-content: center;
+  }
+}/* CatalogPage.module.css */
+
+/* --- LAYOUT --- */
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 48px 64px;
+  display: flex;
+  gap: 64px;
+  box-sizing: border-box;
+}
+
+.sidebar {
+  min-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  min-width: 0;
+}
+
+/* --- SIDEBAR --- */
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filterLabel {
+  color: var(--color-gray);
+  font-weight: 500;
+}
+
+.filtersSection {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.filterTitle {
+  color: var(--color-gray);
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.sectionSubtitle {
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--color-gray-light);
+  padding-bottom: 24px;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-main);
+}
+
+.filterGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.filterItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 112px;
+  height: 96px;
+  padding: 16px;
+  border: 1px solid var(--color-gray-light);
+  border-radius: 12px;
+  background: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filterItemActive {
+  border-color: var(--color-button);
+}
+
+/* --- CARD --- */
+.card {
+  width: 100%;
+  max-width: 888px;
+  min-height: 368px;
+  border: 1px solid var(--color-gray-light);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  gap: 24px;
+  background-color: var(--color-white);
+  box-sizing: border-box;
+}
+
+.imageWrapper {
+  width: 292px;
+  height: 320px;
+  flex-shrink: 1;
+  min-width: 200px;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex: 1;
+  min-width: 0;
+}
+
+.topContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.namePriceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.camperName {
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  font-size: 24px;
+}
+
+.priceWrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.favoriteBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.favoriteBtn:hover {
+  transform: scale(1.1);
+}
+
+.heartIcon {
+  display: block;
+}
+
+.infoRow {
+  display: flex;
+  gap: 16px;
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.description {
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--color-gray);
+}
+
+.badgeList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+  justify-content: flex-start;
+  padding-right: 20px;
+}
+
+.loadMoreWrapper {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.noResults {
+  text-align: center;
+  padding: 100px 0;
+}
+
+/* --- ARA BOYUT (1025px - 1440px) --- */
+@media (max-width: 1439px) {
+  .container {
+    padding: 48px 32px;
+    gap: 32px;
+  }
+  
+  .sidebar {
+    min-width: 300px;
+  }
+
+  .imageWrapper {
+    width: 240px;
+    height: 280px;
+  }
+
+  .camperName {
+    font-size: 20px;
+  }
+
+  .priceWrapper h2 {
+    font-size: 20px;
+  }
+
+  .details {
+    gap: 16px;
+  }
+}
+
+/* --- TABLET GÖRÜNÜMÜ (1024px altı) --- */
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+    padding: 32px 20px;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .sidebar {
+    min-width: 100%;
+    max-width: 600px;
+    order: 1;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Location Input Boyutu Sınırlandırıldı ve Ortalandı */
+  .filterGroup :global(.input-wrapper) {
+    width: fit-content;
+    min-width: 280px;
+    margin: 0 auto;
+  }
+
+  .filterGroup input {
+    text-align: center;
+  }
+
+  .filterGroup, .filtersSection > div {
+    width: 100%;
+    align-items: center;
+  }
+
+  /* Grid'den Flex'e geçiş: Butonlar sığdığı kadar dizilir */
+  .filterGrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .mainContent {
+    order: 2;
+    width: 100%;
+    align-items: center;
+  }
+
+  .card {
+    width: 100%;
+    max-width: none;
+  }
+
+  .imageWrapper {
+    width: 292px;
+    height: 320px;
+  }
+
+  .camperName {
+    font-size: 22px;
+  }
+}
+
+/* --- MOBİL GÖRÜNÜM (768px altı) --- */
+@media (max-width: 768px) {
+  .filterGrid {
+    /* Flex yapısı yukarıdaki 1024px'den miras kalıyor, 
+       Burada sadece hizalamayı kontrol ediyoruz */
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .card {
+    flex-direction: column;
+    height: auto;
+    padding: 16px;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .imageWrapper {
+    width: 100%;
+    height: 200px;
+  }
+
+  .details {
+    align-items: center;
+    text-align: center;
+  }
+
+  .namePriceRow {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .camperName {
+    font-size: 18px;
+    -webkit-line-clamp: 2;
+  }
+
+  .priceWrapper h2 {
+    font-size: 18px;
+  }
+
+  .infoRow {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .description {
+    font-size: 14px;
+    -webkit-line-clamp: 2;
+  }
+
+  .badgeList {
+    padding-right: 0;
+    gap: 6px;
+    justify-content: center;
+  }
+
+  .badgeList div {
+    padding: 8px 12px !important;
+    gap: 4px !important;
+  }
+
+  .badgeList div span {
+    font-size: 12px !important;
+    white-space: normal !important;
+  }
+
+  .badgeList div svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  .sidebar button.btn-primary {
+    width: fit-content;
+    min-width: 200px;
+  }
+
+  .details button.btn-primary {
+    width: fit-content;
+    align-self: center;
+    padding: 12px 32px;
+  }
+}
+
+/* --- ÇOK KÜÇÜK EKRANLAR (480px altı) --- */
+@media (max-width: 480px) {
+  .filterGrid {
+    gap: 8px;
+  }
+
+  .filterItem {
+    width: calc(50% - 8px); /* 2'li dizilim */
+    min-width: 120px;
+  }
+  
+  .namePriceRow {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .badgeList div {
+    flex: 1 1 calc(50% - 6px);
+    justify-content: center;
+  }
 }
